@@ -9,9 +9,9 @@ public class FileLoader {
 	public void readDirectory(String path) {
 		//get files from path
 		ArrayList<File> fileNames = getFileNames(path);
-		
-		for(File fileName:fName) {
-			fName;
+	
+		for(File fileName:fileNames) {
+			
 		}
 	}
 	
