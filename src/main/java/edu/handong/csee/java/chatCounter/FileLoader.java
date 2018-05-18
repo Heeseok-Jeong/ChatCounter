@@ -4,15 +4,15 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class FileLoader {
-	private ArrayList<String> messages;
+	
 	
 	public void readDirectory(String path) {
 		//get files from path
 		ArrayList<File> fileNames = getFileNames(path);
 		
-		//for(File fileName:fName) {
-			
-		//}
+		for(File fileName:fName) {
+			fName;
+		}
 	}
 	
 	private ArrayList<File> getFileNames(String path) {
@@ -20,9 +20,9 @@ public class FileLoader {
 		
 		//get file names in the directory
 		File myPath = new File(path);
-		
+	
 		for(File fileName:myPath.listFiles()) {
-			fileNames.add(fileNames);
+			fileNames.add(fileName);
 		}
 		
 		return fileNames;
