@@ -4,11 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 
 public class FileLoader {
-	public void readDirectory(String path) {
+	public ArrayList<File> readDirectory(String path) {
 		//get files from path
 		ArrayList<File> fileNames = getFileNames(path);
-	
-		
+		return fileNames;
 	}
 	
 	private ArrayList<File> getFileNames(String path) {

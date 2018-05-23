@@ -20,8 +20,9 @@ public class ChatCounter {
 		PMCounter pmc = new PMCounter();
 		FileWriter fw = new FileWriter();
 		
-		fl.readDirectory(openPath);
-		fl.fileNames
+		msg.getMessages(fl.readDirectory(openPath));
+		msg.getMessages();
+		
 	}
 
 }
