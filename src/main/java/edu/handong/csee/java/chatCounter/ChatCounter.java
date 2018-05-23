@@ -14,14 +14,15 @@ public class ChatCounter {
 	private void run(String openPath) {
 		FileLoader fl = new FileLoader();
 		Message msg = new Message();
+		MessageParser msgp = new MessageParser();
 		ParserForMac pfm = new ParserForMac();
 		ParserForWindows pfw = new ParserForWindows();
 		RedundancyChecker rc = new RedundancyChecker();
 		PMCounter pmc = new PMCounter();
 		FileWriter fw = new FileWriter();
 		
-		msg.getMessages(fl.readDirectory(openPath));
-		msg.getMessages();
+		msg.setMessages(fl.readDirectory(openPath));
+		msgp.parse(msg.getMessages());
 		
 	}
 
