@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Message {
-	private HashMap<File, String> messages = new HashMap<File, String>();
+	private HashMap<String, String> messages = new HashMap<String, String>();
 
-	public HashMap<File, String> getMessages() {
+	public HashMap<String, String> getMessages() {
 		return messages;
 	};
 	
-	public void getMessages(ArrayList<File> fileNames) {
+	public void setMessages(ArrayList<File> fileNames) {
 		String thisLine;
 		for(File fileName:fileNames) {
 			try {
@@ -23,7 +23,7 @@ public class Message {
 		                  new InputStreamReader(
 		                               new FileInputStream(fileName), "UTF8"));
 				while ((thisLine = br.readLine()) != null) { // while loop begins here
-					messages.put(fileName, thisLine);
+					messages.put(fileName.toString(), thisLine);
 		         }
 		         br.close();
 		      } catch (IOException e) {
