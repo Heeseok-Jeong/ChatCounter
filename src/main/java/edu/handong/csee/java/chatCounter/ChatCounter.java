@@ -27,12 +27,12 @@ public class ChatCounter {
 	private void run(String openPath, String savePath, String[] args) {
 		FileLoader fl = new FileLoader();
 		Message msg = new Message();
-		MessageParser msgp = new MessageParser();
-		ParserForMac pfm = new ParserForMac();
-		ParserForWindows pfw = new ParserForWindows();
-		RedundancyChecker rc = new RedundancyChecker();
-		PMCounter pmc = new PMCounter();
-		FileWriter fw = new FileWriter();
+//		MessageParser msgp = new MessageParser();
+//		ParserForMac pfm = new ParserForMac();
+//		ParserForWindows pfw = new ParserForWindows();
+//		RedundancyChecker rc = new RedundancyChecker();
+//		PMCounter pmc = new PMCounter();
+//		FileWriter fw = new FileWriter();
 		
 		msg.setMessages(fl.readDirectory(openPath));
 		
@@ -40,7 +40,7 @@ public class ChatCounter {
 		
 		fw.writeCSV(savePath);
 		
-		//apache commons cli
+		//APACHE COMMONS CLI
 		Options options = createOptions();
 		
 		if(parseOptions(options, args)){

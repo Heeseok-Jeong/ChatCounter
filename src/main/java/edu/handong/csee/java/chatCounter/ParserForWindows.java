@@ -1,5 +1,13 @@
 package edu.handong.csee.java.chatCounter;
 
-public class ParserForWindows extends MessageParser{
+import java.io.File;
+
+public class ParserForWindows implements MessageParser{
+
+	@Override
+	public void parse(File fileName) {
+		// TODO Auto-generated method stub
+		
+	}
 
 }
