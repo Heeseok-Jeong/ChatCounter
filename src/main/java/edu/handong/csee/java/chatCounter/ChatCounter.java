@@ -27,12 +27,13 @@ public class ChatCounter {
 	private void run(String openPath, String savePath, String[] args) {
 		FileLoader fl = new FileLoader();
 		Message msg = new Message();
+		FileWriter fw = new FileWriter();
 //		MessageParser msgp = new MessageParser();
 //		ParserForMac pfm = new ParserForMac();
 //		ParserForWindows pfw = new ParserForWindows();
 //		RedundancyChecker rc = new RedundancyChecker();
 //		PMCounter pmc = new PMCounter();
-//		FileWriter fw = new FileWriter();
+		
 		
 		msg.setMessages(fl.readDirectory(openPath));
 		
