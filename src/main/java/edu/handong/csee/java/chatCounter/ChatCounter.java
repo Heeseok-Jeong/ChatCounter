@@ -34,16 +34,8 @@ public class ChatCounter {
 //		RedundancyChecker rc = new RedundancyChecker();
 //		PMCounter pmc = new PMCounter();
 		
-		
-		msg.setMessages(fl.readDirectory(openPath));
-		
-		msgp.parse(msg.getMessages());
-		
-		fw.writeCSV(savePath);
-		
 		//APACHE COMMONS CLI
 		Options options = createOptions();
-		
 		if(parseOptions(options, args)){
 			if (help){
 				printHelp(options);
@@ -55,11 +47,17 @@ public class ChatCounter {
 			
 			// path is required (necessary) data so no need to have a branch.
 			System.out.println("You provided \"" + output + "\" as the value of the option o");
-//			if(verbose) {
-//				
-//				System.out.println("Your program is terminated. (This message is shown because you turned on -v option!");
-//			}
 		}
+		
+		msg.setMessages(fl.readDirectory(openPath));
+		
+		msgp.parse(msg.getMessages());
+		
+		fw.writeCSV(savePath);
+		
+
+		
+
 		
 	}
 	

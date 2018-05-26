@@ -11,6 +11,10 @@ public class NDMData {
 		this.message = message;
 	}
 	
+	public NDMData() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public String getName() {
 		return name;
 	}

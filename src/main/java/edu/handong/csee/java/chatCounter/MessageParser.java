@@ -5,12 +5,11 @@ import java.util.ArrayList;
 //import java.util.HashMap;
 
 public interface MessageParser {
-//	HashMap<String, Integer> map = new HashMap<String, Integer>();
-//	ArrayList<String> names = null;
-//	ArrayList<String> dates = null;
-//	ArrayList<String> messages = null;
-	ArrayList<NDMData> ndmData = null;
-	
+	ArrayList<String> names = null;
+	ArrayList<String> dates = null;
+	ArrayList<String> messages = null;
+
+//	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 
 	public void parse(File fileName) ;
 }
