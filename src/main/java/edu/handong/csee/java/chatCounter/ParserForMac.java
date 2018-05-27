@@ -37,22 +37,32 @@ public class ParserForMac implements MessageParser{
 			}
 			
 			RedundancyChecker rc = new RedundancyChecker();
-			
+			boolean result = true;
 			for (CSVRecord record : records) {
 				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(11,16), record.get(2));
+				
+				rc.setNdmData(ndmData);
 				user = ndm.getName();
-				if(!map.containsKey(user)) {
-					map.(user);
-					
+				if(result = rc.checkRedundancy(ndm)) {
 					ndmData.add(ndm);
+					map.put(user, ndmData);
 				}
-				map
+			}
+				
 //				names.add(record.get(1));
 //				dates.add(record.get(0).substring(11,16));
 //				messages.add(record.get(2));
 				//this.ndmData(record.get(1), record.get(0).substring(11,16), record.get(2));
 				//NDMData배열을 만들어서 내용을 넣고 싶은데... records의 역할이 뭐지?
-			}
+			
+	}
+
+	public ArrayList<NDMData> getNdmData() {
+		return ndmData;
+	}
+
+	public void setNdmData(ArrayList<NDMData> ndmData) {
+		this.ndmData = ndmData;
 	}
 
 	
