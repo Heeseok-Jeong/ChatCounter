@@ -36,8 +36,13 @@ public class ParserForMac implements MessageParser{
 				e.printStackTrace();
 			}
 			
+			RedundancyChecker rc = new RedundancyChecker();
+			
 			for (CSVRecord record : records) {
 				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(11,16), record.get(2));
+				if(rc.checkRedundancy(messages, names) {
+				
+				}
 				names.add(ndm.getName());
 				dates.add(ndm.getDate());
 				messages.add(ndm.getMessage());

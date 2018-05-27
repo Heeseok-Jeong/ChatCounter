@@ -20,7 +20,6 @@ public class ParserForWindows implements MessageParser{
 	
 	@Override
 	public void parse(File fileName) { 
-		boolean bool = true;
 		BufferedReader br = null;
 		try {
 			br = new BufferedReader(
@@ -34,13 +33,16 @@ public class ParserForWindows implements MessageParser{
 		//분류하
 		String pattern1 = "\\[(.+)\\]\\s\\[(.+)\\s(\\d+):(\\d+)\\]\\s(.+)";
 		Pattern p1 = Pattern.compile(pattern1);
-		String pattern2 = "-+\\s(\\d+).\\s(\\d).\\s(\\d+).\\s.+\\s-+";
+		String pattern2 = "-+\\s(\\d+).\\s(\\d+).\\s(\\d+).\\s.+\\s-+";
 		Pattern p2 = Pattern.compile(pattern2);
+		String pattern3 = "\\[(.+)\\]\\s\\[(\\d+):(\\d+)\\s(.+)\\]\\s(.+)";
+		Pattern p3 = Pattern.compile(pattern3);
 		
 		try {
 			for(temp = br.readLine(); temp != null;) {
 				Matcher match1 = p1.matcher(temp);
 				Matcher match2 = p2.matcher(temp);
+				Matcher match3 = p3.matcher(temp);
 				if(match2.find()) {
 					year = Integer.parseInt(match2.group(1));
 					month = Integer.parseInt(match2.group(2));
@@ -53,27 +55,18 @@ public class ParserForWindows implements MessageParser{
 					hour = Integer.parseInt(match1.group(3));					
 					min = Integer.parseInt(match1.group(4));
 				
-					String check = "year+\"-\"+month+\"-\"+day+\" \"+hour+\":\"+min+\" \"+name+\" \"+message";
+					RedundancyChecker rc = new RedundancyChecker();
+					rc.checkRedundancy(messages, names);
 					
-					if(match1.group(2).contains("오후") && hour != 12) {
-						 hour = Integer.parseInt(match1.group(3)) + 12;
-					 }
-					 if(match1.group(2).contains("오전") && hour == 12) {
-						 hour = 0;
-					 }
-					 
-					 if(message.equals("사진")) {
-						 message = "Photo";
-					 }
+
+				}
+				
+				if(match3.find()) {
+					name = match3.group(1);
+					message = match3.group(5);
+					hour = Integer.parseInt(match3.group(2));
+					min = Integer.parseInt(match3.group(3));
 					
-					if(messages.contains(check)) {
-						messages.add(check);
-						bool = true;
-					}
-					if(bool) {
-						names.add(name);						
-						bool = false;
-					}
 					
 				}
 				br.close();	
