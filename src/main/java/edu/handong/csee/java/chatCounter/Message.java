@@ -6,9 +6,9 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Message {
-	private HashMap<String, ArrayList<String>> messages = new HashMap<String, ArrayList<String>>();
+	private HashMap<String, ArrayList<NDMData>> messages = new HashMap<String, ArrayList<NDMData>>();
 
-	public HashMap<String, ArrayList<String>> getMessages() {
+	public HashMap<String, ArrayList<NDMData>> getMessages() {
 		return messages;
 	};
 	

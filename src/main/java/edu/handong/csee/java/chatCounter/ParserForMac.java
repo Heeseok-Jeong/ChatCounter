@@ -6,15 +6,15 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
 public class ParserForMac implements MessageParser{
-	static ArrayList<String> names = null;
-	static ArrayList<String> dates = null;
-	static ArrayList<String> messages = null;
-	//ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
+	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
+	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
+	String user = new String();
 	
 	public void parse(File fileName) {
 			Reader in = null;
@@ -40,12 +40,13 @@ public class ParserForMac implements MessageParser{
 			
 			for (CSVRecord record : records) {
 				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(11,16), record.get(2));
-				if(rc.checkRedundancy(messages, names) {
-				
+				user = ndm.getName();
+				if(!map.containsKey(user)) {
+					map.(user);
+					
+					ndmData.add(ndm);
 				}
-				names.add(ndm.getName());
-				dates.add(ndm.getDate());
-				messages.add(ndm.getMessage());
+				map
 //				names.add(record.get(1));
 //				dates.add(record.get(0).substring(11,16));
 //				messages.add(record.get(2));
@@ -54,28 +55,6 @@ public class ParserForMac implements MessageParser{
 			}
 	}
 
-	public static ArrayList<String> getNames() {
-		return names;
-	}
-
-	public static void setNames(ArrayList<String> names) {
-		ParserForMac.names = names;
-	}
-
-	public static ArrayList<String> getDates() {
-		return dates;
-	}
-
-	public static void setDates(ArrayList<String> dates) {
-		ParserForMac.dates = dates;
-	}
-
-	public static ArrayList<String> getMessages() {
-		return messages;
-	}
-
-	public static void setMessages(ArrayList<String> messages) {
-		ParserForMac.messages = messages;
-	}
+	
 	
 }

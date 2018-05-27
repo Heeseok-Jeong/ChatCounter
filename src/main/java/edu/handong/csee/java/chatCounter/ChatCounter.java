@@ -7,11 +7,16 @@ import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Option;
 import org.apache.commons.cli.Options;
 
+import java.io.IOException;
+import java.util.*;
+
 public class ChatCounter {
 	static ChatCounter chCounter = new ChatCounter();
 	static String openPath = new String();
 	static String savePath = new String();
 	
+	HashMap<String, ArrayList<NDMData>> messages = new HashMap<String, ArrayList<NDMData>>();
+	HashMap<String, Integer> finalOutput = new HashMap<String, Integer>();
 	String input;
 	String output;
 	boolean help;
@@ -28,11 +33,6 @@ public class ChatCounter {
 		FileLoader fl = new FileLoader();
 		Message msg = new Message();
 		FileWriter fw = new FileWriter();
-//		MessageParser msgp = new MessageParser();
-//		ParserForMac pfm = new ParserForMac();
-//		ParserForWindows pfw = new ParserForWindows();
-//		RedundancyChecker rc = new RedundancyChecker();
-//		PMCounter pmc = new PMCounter();
 		
 		//APACHE COMMONS CLI
 		Options options = createOptions();
@@ -41,7 +41,6 @@ public class ChatCounter {
 				printHelp(options);
 				return;
 			}
-			
 			// path is required (necessary) data so no need to have a branch.
 			System.out.println("You provided \"" + input + "\" as the value of the option i");
 			
@@ -49,9 +48,19 @@ public class ChatCounter {
 			System.out.println("You provided \"" + output + "\" as the value of the option o");
 		}
 		
-		msg.setMessages(fl.readDirectory(openPath));
+		try {
+			msg.setMessages(fl.readDirectory(openPath));
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		messages = msg.getMessages();
 		
-		msgp.parse(msg.getMessages());
+		PMCounter pmc = new PMCounter();
+		finalOutput = pmc.computePM(messages);
+		
+		
+//		msgp.parse(msg.getMessages());
 		
 		fw.writeCSV(savePath);
 		

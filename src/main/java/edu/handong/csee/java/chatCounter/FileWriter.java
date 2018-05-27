@@ -14,7 +14,6 @@ public class FileWriter {
 	ArrayList<String> kakaoID = new ArrayList<String>();
 	
 	public void writeCSV(String savePath) {
-//		BufferedWriter  bw = new BufferedWriter(new FileWriter(savePath));
 		try {
 			BufferedWriter bw = new BufferedWriter(
 			          new OutputStreamWriter(
@@ -28,8 +27,26 @@ public class FileWriter {
 		}
 		
 		bw.write
-		
-	//	BufferedWriter bw = new BufferedWriter(new FileWriter(savePath);
+		 
+//	    public CSVWrite() {
+//	 
+//	    public void writeCsv(List<String[]> data) {
+//	        try {
+//	            CSVWriter cw = new CSVWriter(new FileWriter(savePath), ',', '"');
+//	            Iterator<String[]> it = data.iterator();
+//	            try {
+//	                while (it.hasNext()) {
+//	                    String[] s = (String[]) it.next();
+//	                    cw.writeNext(s);
+//	                }
+//	            } finally {
+//	                cw.close();
+//	            }
+//	        } catch (IOException e) {
+//	            e.printStackTrace();
+//	        }
+//	    }
+//	}
 		
 		
 	}

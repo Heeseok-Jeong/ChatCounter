@@ -31,12 +31,14 @@ public class ParserForWindows implements MessageParser{
 			e.printStackTrace();
 		}
 		//분류하
-		String pattern1 = "\\[(.+)\\]\\s\\[(.+)\\s(\\d+):(\\d+)\\]\\s(.+)";
-		Pattern p1 = Pattern.compile(pattern1);
-		String pattern2 = "-+\\s(\\d+).\\s(\\d+).\\s(\\d+).\\s.+\\s-+";
-		Pattern p2 = Pattern.compile(pattern2);
-		String pattern3 = "\\[(.+)\\]\\s\\[(\\d+):(\\d+)\\s(.+)\\]\\s(.+)";
-		Pattern p3 = Pattern.compile(pattern3);
+		String pKorMessage = "\\[(.+)\\]\\s\\[(.+)\\s(\\d+):(\\d+)\\]\\s(.+)";
+		Pattern p1 = Pattern.compile(pKorMessage);
+		String pKorDate = "-+\\s(\\d+).\\s(\\d+).\\s(\\d+).\\s.+\\s-+";
+		Pattern p2 = Pattern.compile(pKorDate);
+		String pEngMessage = "\\[(.+)\\]\\s\\[(\\d+):(\\d+)\\s(.+)\\]\\s(.+)";
+		Pattern p3 = Pattern.compile(pEngMessage);
+		String pEngDate = "-+\\s(.+)\\W\\s(.+)\\s(\\d+)\\W\\s\\d+\\s-+";
+		Pattern p4 = Pattern.compile(pEngDate);
 		
 		try {
 			for(temp = br.readLine(); temp != null;) {
