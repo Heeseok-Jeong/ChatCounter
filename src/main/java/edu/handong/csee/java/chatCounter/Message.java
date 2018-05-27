@@ -19,12 +19,10 @@ public class Message {
 		ParserForWindows winParser = new ParserForWindows();
 		
 		for(File fileName:fileNames) {
-		        
 		        if(fileName.getName().contains(".csv"))
 		        	macParser.parse(fileName);
 		        else 
-		        	winParser.parse(fileName);
-		      
+		        	winParser.parse(fileName);     
 		}
 	}
 }
