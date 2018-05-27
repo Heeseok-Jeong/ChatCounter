@@ -8,16 +8,34 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ParserForWindows implements MessageParser{
-	ArrayList<String> names = null;
-	ArrayList<String> dates = null;
-	ArrayList<String> messages = null;
+	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
+	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
+	
+	String user = new String();
 	String name, message, temp;
 	int year, month, day, hour, min;
 	
+	public HashMap<String, ArrayList<NDMData>> getMap() {
+		return map;
+	}
+
+	public void setMap(HashMap<String, ArrayList<NDMData>> map) {
+		this.map = map;
+	}
+
+	public int getHour() {
+		return hour;
+	}
+
+	public void setHour(int hour) {
+		this.hour = hour;
+	}
+
 	@Override
 	public void parse(File fileName) { 
 		BufferedReader br = null;
@@ -37,7 +55,7 @@ public class ParserForWindows implements MessageParser{
 		Pattern p2 = Pattern.compile(pKorDate);
 		String pEngMessage = "\\[(.+)\\]\\s\\[(\\d+):(\\d+)\\s(.+)\\]\\s(.+)";
 		Pattern p3 = Pattern.compile(pEngMessage);
-		String pEngDate = "-+\\s(.+)\\W\\s(.+)\\s(\\d+)\\W\\s\\d+\\s-+";
+		String pEngDate = "-+\\s.+\\W\\s(.+)\\s(\\d+)\\W\\s(\\d+)\\s-+";
 		Pattern p4 = Pattern.compile(pEngDate);
 		
 		try {
@@ -45,32 +63,37 @@ public class ParserForWindows implements MessageParser{
 				Matcher match1 = p1.matcher(temp);
 				Matcher match2 = p2.matcher(temp);
 				Matcher match3 = p3.matcher(temp);
-				if(match2.find()) {
-					year = Integer.parseInt(match2.group(1));
-					month = Integer.parseInt(match2.group(2));
-					day = Integer.parseInt(match2.group(3));
-				}
+				Matcher match4 = p4.matcher(temp);		
 				
 				if(match1.find()) {
 					name = match1.group(1);
 					message = match1.group(5);
 					hour = Integer.parseInt(match1.group(3));					
 					min = Integer.parseInt(match1.group(4));
+				}
 				
-					RedundancyChecker rc = new RedundancyChecker();
-					rc.checkRedundancy(messages, names);
-					
-
+				if(match2.find()) {
+					year = Integer.parseInt(match2.group(1));
+					month = Integer.parseInt(match2.group(2));
+					day = Integer.parseInt(match2.group(3));
 				}
 				
 				if(match3.find()) {
 					name = match3.group(1);
 					message = match3.group(5);
 					hour = Integer.parseInt(match3.group(2));
-					min = Integer.parseInt(match3.group(3));
-					
-					
+					min = Integer.parseInt(match3.group(3));	
 				}
+				
+				if(match4.find()) {
+					year = Integer.parseInt(match4.group(3));
+					month = Integer.parseInt(convert(match4.group(1)));
+					day = Integer.parseInt(match4.group(2));
+				}
+				//할거 1. match1,3번 시간 am, pm, 오전, 오후 통일해주기
+				//할거 2. FileWriter 구현하
+				
+				
 				br.close();	
 			}
 		} catch (IOException e) {
@@ -89,28 +112,19 @@ public class ParserForWindows implements MessageParser{
 		
 	}
 
-	public ArrayList<String> getNames() {
-		return names;
+	private String convert(String group) {
+		String month = "0";
+		
+		switch(group) {
+		case "January" : month = "1";
+		case "Feburary" : month = "2";
+		case "March" : month = "3";
+		case "April" : month = "4";
+		case "May" : month = "5";
+		case "June" : month = "6";
+		default : return month;
+		}
 	}
 
-	public void setNames(ArrayList<String> names) {
-		this.names = names;
-	}
-
-	public ArrayList<String> getDates() {
-		return dates;
-	}
-
-	public void setDates(ArrayList<String> dates) {
-		this.dates = dates;
-	}
-
-	public ArrayList<String> getMessages() {
-		return messages;
-	}
-
-	public void setMessages(ArrayList<String> messages) {
-		this.messages = messages;
-	}
 
 }

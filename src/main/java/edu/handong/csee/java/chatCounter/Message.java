@@ -13,31 +13,19 @@ public class Message {
 	};
 	
 	public void setMessages(ArrayList<File> fileNames) throws IOException {
-//		String thisLine;
-//		String temp = null;
 		ParserForMac macParser = new ParserForMac();
 		ParserForWindows winParser = new ParserForWindows();
 		
 		for(File fileName:fileNames) {
-		        if(fileName.getName().contains(".csv"))
+		        if(fileName.getName().contains(".csv")) {
 		        	macParser.parse(fileName);
-		        else 
-		        	winParser.parse(fileName);     
+		        	messages.putAll(macParser.getMap());
+		        }
+		        else {
+		        	winParser.parse(fileName); 
+		        	messages.putAll(winParser.getMap());
+		        }
 		}
 	}
 }
-//	while ((thisLine = br.readLine()) != null) { // while loop begins here
-//	temp += thisLine;
-// }
-//
-//if(!messages.containsKey(user)) {
-//	messages.put(user, new ArrayList<String>());
-//}
-//
-//NDMData ndmData = new NDMData(user, date, )
-//messages.put(fileName.toString(), temp);
-//br.close();
-//} catch (IOException e) {
-// e.printStackTrace();
-//}
 

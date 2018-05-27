@@ -15,6 +15,7 @@ public class ParserForMac implements MessageParser{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	String user = new String();
+	boolean result = true;
 	
 	public void parse(File fileName) {
 			Reader in = null;
@@ -25,8 +26,6 @@ public class ParserForMac implements MessageParser{
 				e1.printStackTrace();
 			}
 			
-			
-			//in = new FileReader(file);
 			Iterable<CSVRecord> records = null;
 			try {
 				records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
@@ -37,7 +36,7 @@ public class ParserForMac implements MessageParser{
 			}
 			
 			RedundancyChecker rc = new RedundancyChecker();
-			boolean result = true;
+			
 			for (CSVRecord record : records) {
 				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(11,16), record.get(2));
 				
@@ -48,17 +47,19 @@ public class ParserForMac implements MessageParser{
 					map.put(user, ndmData);
 				}
 			}
-				
-//				names.add(record.get(1));
-//				dates.add(record.get(0).substring(11,16));
-//				messages.add(record.get(2));
-				//this.ndmData(record.get(1), record.get(0).substring(11,16), record.get(2));
-				//NDMData배열을 만들어서 내용을 넣고 싶은데... records의 역할이 뭐지?
-			
+
 	}
 
 	public ArrayList<NDMData> getNdmData() {
 		return ndmData;
+	}
+
+	public HashMap<String, ArrayList<NDMData>> getMap() {
+		return map;
+	}
+
+	public void setMap(HashMap<String, ArrayList<NDMData>> map) {
+		this.map = map;
 	}
 
 	public void setNdmData(ArrayList<NDMData> ndmData) {
