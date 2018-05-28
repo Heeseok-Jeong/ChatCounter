@@ -149,14 +149,6 @@ public class ParserForWindows implements MessageParser{
 		
 	}
 
-	public ArrayList<NDMData> getNdmData() {
-		return ndmData;
-	}
-
-	public void setNdmData(ArrayList<NDMData> ndmData) {
-		this.ndmData = ndmData;
-	}
-
 	private String convert(String group) {
 		String month = "0";
 		

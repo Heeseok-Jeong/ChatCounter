@@ -1,23 +1,35 @@
 package edu.handong.csee.java.chatCounter;
 
 import java.io.*;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.OutputStreamWriter;
-import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.HashMap;
 
 public class FileWriter {
 	HashMap<String, Integer> output = new HashMap<String, Integer>();
 	ArrayList<String> kakaoID = new ArrayList<String>();
+	String string = null;
 	
-	public void writeCSV(String savePath) {
+	public void writeCSV(String savePath, HashMap<String, Integer> finalOutput) {
 		try {
 			BufferedWriter bw = new BufferedWriter(
 			          new OutputStreamWriter(
 			                       new FileOutputStream(savePath), "UTF8"));
+			try {
+				bw.write("Kakaotalk_id, Count");
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			for(String keys : output.keySet()) {
+				string = keys + ", " + output.get(keys);
+				try {
+					bw.write(string);
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -26,7 +38,7 @@ public class FileWriter {
 			e.printStackTrace();
 		}
 		
-		bw.write
+		
 		 
 //	    public CSVWrite() {
 //	 

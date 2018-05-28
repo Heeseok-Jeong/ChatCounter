@@ -27,5 +27,9 @@ public class Message {
 		        }
 		}
 	}
+
+	public void setMessages(HashMap<String, ArrayList<NDMData>> messages) {
+		this.messages = messages;
+	}
 }
 

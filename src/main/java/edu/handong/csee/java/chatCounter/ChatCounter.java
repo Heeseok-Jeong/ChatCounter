@@ -55,18 +55,9 @@ public class ChatCounter {
 			e.printStackTrace();
 		}
 		messages = msg.getMessages();
-		
 		PMCounter pmc = new PMCounter();
-		finalOutput = pmc.computePM(messages);
-		
-		
-//		msgp.parse(msg.getMessages());
-		
-		fw.writeCSV(savePath);
-		
-
-		
-
+		finalOutput = pmc.computePM(messages);		
+		fw.writeCSV(savePath, finalOutput);
 		
 	}
 	
@@ -104,7 +95,7 @@ public class ChatCounter {
 
 		// add options by using OptionBuilder
 		options.addOption(Option.builder("o").longOpt("output")
-				.desc("Set a directory path that contains output files")
+				.desc("Set a directory path that output file are saved")
 				.hasArg()
 				.argName("Directory Path")
 				.required()
