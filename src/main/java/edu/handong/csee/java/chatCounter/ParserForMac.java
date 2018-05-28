@@ -38,8 +38,7 @@ public class ParserForMac implements MessageParser{
 			RedundancyChecker rc = new RedundancyChecker();
 			
 			for (CSVRecord record : records) {
-				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(11,16), record.get(2));
-				
+				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(10,16), record.get(2));
 				rc.setNdmData(ndmData);
 				user = ndm.getName();
 				if(result = rc.checkRedundancy(ndm)) {

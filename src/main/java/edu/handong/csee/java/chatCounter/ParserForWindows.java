@@ -15,6 +15,7 @@ import java.util.regex.Pattern;
 public class ParserForWindows implements MessageParser{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
+	String date;
 	
 	String user = new String();
 	String name, message, temp;
@@ -65,33 +66,69 @@ public class ParserForWindows implements MessageParser{
 				Matcher match3 = p3.matcher(temp);
 				Matcher match4 = p4.matcher(temp);		
 				
-				if(match1.find()) {
-					name = match1.group(1);
-					message = match1.group(5);
-					hour = Integer.parseInt(match1.group(3));					
-					min = Integer.parseInt(match1.group(4));
-				}
-				
 				if(match2.find()) {
 					year = Integer.parseInt(match2.group(1));
 					month = Integer.parseInt(match2.group(2));
 					day = Integer.parseInt(match2.group(3));
+				
+					if(match1.find()) {
+						name = match1.group(1);
+						message = match1.group(5);
+						hour = Integer.parseInt(match1.group(3));					
+						min = Integer.parseInt(match1.group(4));
+					
+						if(match1.group(2).equals("오후")) {
+							if(hour == 12) ;
+							else hour += 12;
+						}
+						if(match1.group(2).equals("오전") && hour == 12) hour = 0;
+					}
 				}
 				
-				if(match3.find()) {
-					name = match3.group(1);
-					message = match3.group(5);
-					hour = Integer.parseInt(match3.group(2));
-					min = Integer.parseInt(match3.group(3));	
-				}
-				
-				if(match4.find()) {
+				else if(match4.find()) {
 					year = Integer.parseInt(match4.group(3));
 					month = Integer.parseInt(convert(match4.group(1)));
 					day = Integer.parseInt(match4.group(2));
+					if(match3.find()) {
+						name = match3.group(1);
+						message = match3.group(5);
+						hour = Integer.parseInt(match3.group(2));
+						min = Integer.parseInt(match3.group(3));	
+					
+						if(match1.group(4).equals("PM")) {
+							if(hour == 12) ;
+							else hour += 12;
+						}
+						if(match1.group(4).equals("AM") && hour == 12) hour = 0;
+					}
 				}
+				
+				else {
+					year = 0;
+					month = 0;
+					day = 0;
+					if(match3.find()) {
+						name = match3.group(1);
+						message = match3.group(5);
+						hour = Integer.parseInt(match3.group(2));
+						min = Integer.parseInt(match3.group(3));	
+					
+						if(match1.group(4).equals("PM")) {
+							if(hour == 12) ;
+							else hour += 12;
+						}
+						if(match1.group(4).equals("AM") && hour == 12) hour = 0;
+					}
+				}
+				
+				date = "year" + "month" + "day";
+				NDMData ndm = new NDMData(name, date, message);
+				ndmData.add(ndm);
+				map.put(name, ndmData);
+				
 				//할거 1. match1,3번 시간 am, pm, 오전, 오후 통일해주기
-				//할거 2. FileWriter 구현하
+				//할거 2. 여기서 만든거 해쉬맵 넣
+				//할거 3. FileWriter 구현하
 				
 				
 				br.close();	
@@ -110,6 +147,14 @@ public class ParserForWindows implements MessageParser{
 			e.printStackTrace();
 		}	
 		
+	}
+
+	public ArrayList<NDMData> getNdmData() {
+		return ndmData;
+	}
+
+	public void setNdmData(ArrayList<NDMData> ndmData) {
+		this.ndmData = ndmData;
 	}
 
 	private String convert(String group) {
