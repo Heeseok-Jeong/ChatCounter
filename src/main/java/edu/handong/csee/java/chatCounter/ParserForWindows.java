@@ -12,6 +12,11 @@ import java.util.HashMap;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+/**
+ * this class reads txt type files and makes its contents to HashMap
+ * @author heeseok
+ *
+ */
 public class ParserForWindows implements MessageParser{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
@@ -21,23 +26,38 @@ public class ParserForWindows implements MessageParser{
 	String name, message, temp;
 	int year, month, day, hour, min;
 	
+	/**
+	 * getter of map
+	 */
 	public HashMap<String, ArrayList<NDMData>> getMap() {
 		return map;
 	}
 
+	/**
+	 * setter of map
+	 */
 	public void setMap(HashMap<String, ArrayList<NDMData>> map) {
 		this.map = map;
 	}
 
+	/**
+	 * getter of hour
+	 */
 	public int getHour() {
 		return hour;
 	}
 
+	/**
+	 * setter of hour
+	 */
 	public void setHour(int hour) {
 		this.hour = hour;
 	}
 
 	@Override
+	/**
+	 * this method overrides its interface and reads txt type files and makes its contents to HashMap
+	 */
 	public void parse(File fileName) { 
 		BufferedReader br = null;
 		try {
@@ -52,11 +72,11 @@ public class ParserForWindows implements MessageParser{
 		//분류하
 		String pKorMessage = "\\[(.+)\\]\\s\\[(.+)\\s(\\d+):(\\d+)\\]\\s(.+)";
 		Pattern p1 = Pattern.compile(pKorMessage);
-		String pKorDate = "-+\\s(\\d+).\\s(\\d+).\\s(\\d+).\\s.+\\s-+";
+		String pKorDate = "([0-9]+).\\s([0-9]+).\\s([0-9]+).\\s.+";
 		Pattern p2 = Pattern.compile(pKorDate);
 		String pEngMessage = "\\[(.+)\\]\\s\\[(\\d+):(\\d+)\\s(.+)\\]\\s(.+)";
 		Pattern p3 = Pattern.compile(pEngMessage);
-		String pEngDate = "-+\\s.+\\W\\s(.+)\\s(\\d+)\\W\\s(\\d+)\\s-+";
+		String pEngDate = ".+,\\s(.+)\\s([0-9]+),\\s([0-9]+)\\s.+";
 		Pattern p4 = Pattern.compile(pEngDate);
 		
 		try {
@@ -121,10 +141,21 @@ public class ParserForWindows implements MessageParser{
 					}
 				}
 				
-				date = "year" + "month" + "day";
+				date = Integer.toString(hour) + ":" + Integer.toString(min);
 				NDMData ndm = new NDMData(name, date, message);
-				ndmData.add(ndm);
-				map.put(name, ndmData);
+				if(!map.containsKey(ndm.getName())) {
+					map.put(name, new ArrayList<NDMData>());
+				}
+				RedundancyChecker rc = new RedundancyChecker();
+				rc.setNdmData(ndmData);
+				if(rc.checkRedundancy(ndm)) {
+					map.get(ndm.getName()).add(ndm);
+//					ndmData.add(ndm);
+//					map.put(name, ndmData);
+				}
+				
+				//ndmData.add(ndm);
+				//map.put(name, ndmData);
 				
 				//할거 1. match1,3번 시간 am, pm, 오전, 오후 통일해주기
 				//할거 2. 여기서 만든거 해쉬맵 넣
@@ -159,8 +190,8 @@ public class ParserForWindows implements MessageParser{
 		case "April" : month = "4";
 		case "May" : month = "5";
 		case "June" : month = "6";
-		default : return month;
 		}
+		return month;
 	}
 
 

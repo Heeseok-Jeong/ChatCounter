@@ -2,11 +2,20 @@ package edu.handong.csee.java.chatCounter;
 
 import java.util.ArrayList;
 
+/**
+ * this class checks whether ndm includes or not and return boolean result
+ * @author heeseok
+ *
+ */
 public class RedundancyChecker {
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
-	boolean result = true;
+	boolean result;
 	
+	/**
+	 * this method checks ndm includes ndmData and returns true or false
+	 */
 	public boolean checkRedundancy(NDMData ndm) {
+		result = true;
 		if(ndmData.contains(ndm)) result = false;
 		
 		return result;

@@ -4,11 +4,19 @@ import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * this class writes a csv file with a HashMap
+ * @author heeseok
+ *
+ */
 public class FileWriter {
 	HashMap<String, Integer> output = new HashMap<String, Integer>();
 	ArrayList<String> kakaoID = new ArrayList<String>();
 	String string = null;
 	
+	/**
+	 * this method has two parameters and makes a csv file with them
+	 */
 	public void writeCSV(String savePath, HashMap<String, Integer> finalOutput) {
 		try {
 			BufferedWriter bw = new BufferedWriter(
@@ -20,6 +28,9 @@ public class FileWriter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
+			//정렬 해야한다.
+			//Iterator it = sortByValue(output).iterator();
+
 			for(String keys : output.keySet()) {
 				string = keys + ", " + output.get(keys);
 				try {
@@ -29,7 +40,12 @@ public class FileWriter {
 					e.printStackTrace();
 				}
 			}
-			
+			try {
+				bw.close();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -37,6 +53,7 @@ public class FileWriter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
 		
 		
 		 

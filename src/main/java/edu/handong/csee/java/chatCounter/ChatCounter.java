@@ -10,6 +10,11 @@ import org.apache.commons.cli.Options;
 import java.io.IOException;
 import java.util.*;
 
+/**
+ * this class is for main method to run. 
+ * @author heeseok
+ *
+ */
 public class ChatCounter {
 	static ChatCounter chCounter = new ChatCounter();
 	static String openPath = new String();
@@ -21,7 +26,9 @@ public class ChatCounter {
 	String output;
 	boolean help;
 
-	
+	/**
+	 * this method is main method to run.
+	 */
 	public static void main(String[] args) {
 		openPath = args[1];
 		savePath = args[3];

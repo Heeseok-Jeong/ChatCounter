@@ -3,6 +3,12 @@ package edu.handong.csee.java.chatCounter;
 import java.io.File;
 import java.util.ArrayList;
 
+
+/**
+ * this class gets all files from input path.
+ * @author heeseok
+ *
+ */
 public class FileLoader {
 	public ArrayList<File> readDirectory(String path) {
 		//get files from path

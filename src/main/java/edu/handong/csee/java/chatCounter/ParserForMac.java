@@ -7,16 +7,25 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
+//import java.lang.*;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
+/**
+ * this class reads csv type files and makes its contents to HashMap
+ * @author heeseok
+ *
+ */
 public class ParserForMac implements MessageParser{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	String user = new String();
 	boolean result = true;
 	
+	/**
+	 * this method reads csv type files and makes its contents to HashMap
+	 */
 	public void parse(File fileName) {
 			Reader in = null;
 			try {
@@ -38,29 +47,49 @@ public class ParserForMac implements MessageParser{
 			RedundancyChecker rc = new RedundancyChecker();
 			
 			for (CSVRecord record : records) {
-				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(10,16), record.get(2));
+				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(11,16), record.get(2));
+				
+//				if(!map.containsKey(ndm.getName())) {
+//					map.put(user, new ArrayList<NDMData>());
+//				}
 				rc.setNdmData(ndmData);
 				user = ndm.getName();
-				if(result = rc.checkRedundancy(ndm)) {
-					ndmData.add(ndm);
-					map.put(user, ndmData);
-				}
+				//if(rc.checkRedundancy(ndm)) {
+				//	map.get(ndm.getName()).add(ndm);
+				ndmData.add(ndm);
+				map.put(user, ndmData);
+				//}
+				
+				
+				
 			}
 
 	}
 
+	/**
+	 * getter of ndmData
+	 */
 	public ArrayList<NDMData> getNdmData() {
 		return ndmData;
 	}
 
+	/**
+	 * getter of map
+	 */
 	public HashMap<String, ArrayList<NDMData>> getMap() {
 		return map;
 	}
 
+	/**
+	 * setter of map
+	 */
 	public void setMap(HashMap<String, ArrayList<NDMData>> map) {
 		this.map = map;
 	}
 
+	/**
+	 * setter of ndmData
+	 */
 	public void setNdmData(ArrayList<NDMData> ndmData) {
 		this.ndmData = ndmData;
 	}
