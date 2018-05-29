@@ -3,7 +3,10 @@ package edu.handong.csee.java.chatCounter;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.LinkedList;
+import java.util.List;
+import java.util.Map.Entry;
+import java.util.*;
 
 /**
  * this class writes a csv file with a HashMap
@@ -34,9 +37,9 @@ public class FileWriter {
 			 * 할거 1. window용 파서 안돌아감 2. 중복체크되는지확인 3.정
 			 */
 			//Iterator it = FileWriter.sortByValue(finalOutput).iterator();
-			
-			for(String keys : finalOutput.keySet()) {
-				string = keys + ", " + finalOutput.get(keys) + "\n";
+			HashMap<String, Integer> sortedMap = sortedByComparator(finalOutput, false);
+			for(String keys : sortedMap.keySet()) {
+				string = keys + ", " + sortedMap.get(keys) + "\n";
 				bw.write(string);
 			}
 			bw.close();
@@ -46,16 +49,43 @@ public class FileWriter {
 			} catch (FileNotFoundException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
-			}
-//		} catch (IOException e) {
-//				// TODO Auto-generated catch block
-//			e.printStackTrace();
-//		}
- catch (IOException e) {
+			} catch (IOException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-	} 
+	}
+
+	private HashMap<String, Integer> sortedByComparator(HashMap<String, Integer> finalOutput, boolean b) {
+		List<Entry<String, Integer>> list = new LinkedList<Entry<String, Integer>>(finalOutput.entrySet());
+
+        // Sorting the list based on values
+        Collections.sort(list, new Comparator<Entry<String, Integer>>()
+        {
+            public int compare(Entry<String, Integer> o1,
+                    Entry<String, Integer> o2)
+            {
+                if (b)
+                {
+                    return o1.getValue().compareTo(o2.getValue());
+                }
+                else
+                {
+                    return o2.getValue().compareTo(o1.getValue());
+
+                }
+            }
+        });
+
+        // Maintaining insertion order with the help of LinkedList
+        HashMap<String, Integer> sortedMap = new LinkedHashMap<String, Integer>();
+        for (Entry<String, Integer> entry : list)
+        {
+            sortedMap.put(entry.getKey(), entry.getValue());
+        }
+
+        return sortedMap;
+    }
+} 
 		
 		
 		
@@ -103,4 +133,4 @@ public class FileWriter {
 //}
 //</string></string,integer></string,integer>
 
-}
+
