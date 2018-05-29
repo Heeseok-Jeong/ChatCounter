@@ -4,10 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Map;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 
 /**
  * this class reads and parses all files with two different type logics and makes final HashMap
@@ -15,8 +11,6 @@ import java.util.stream.Stream;
  *
  */
 public class Message {
-	private HashMap<String, ArrayList<NDMData>> csvMessages = new HashMap<String, ArrayList<NDMData>>();
-	private HashMap<String, ArrayList<NDMData>> txtMessages = new HashMap<String, ArrayList<NDMData>>();
 	private HashMap<String, ArrayList<NDMData>> allMessages = new HashMap<String, ArrayList<NDMData>>();
 
 	/**
@@ -51,10 +45,10 @@ public class Message {
 			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
 				continue;
 			}
-				if(fileName.getName().contains(".csv")) {
-		        	macParser.parse(fileName);
-		        	allMessages.putAll(macParser.getMap());
-		        }
+			if(fileName.getName().contains(".csv")) {
+		       	macParser.parse(fileName);
+		       	allMessages.putAll(macParser.getMap());
+		    }
 		}
 //		allMessages.putAll(csvMessages);
 //		allMessages.putAll(txtMessages);

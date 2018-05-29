@@ -61,6 +61,9 @@ public class FileWriter {
         // Sorting the list based on values
         Collections.sort(list, new Comparator<Entry<String, Integer>>()
         {
+        	/**
+        	 * compare two types
+        	 */
             public int compare(Entry<String, Integer> o1,
                     Entry<String, Integer> o2)
             {
