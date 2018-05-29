@@ -11,7 +11,12 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- * this class is for main method to run. 
+ * This class is for main method to run. 
+ * First, reads an input path and divides fileNames. 
+ * Second, there are two types of file 'txt' and 'csv', so it gonna treat each properly.
+ * Third, saves all data into hash map with redundancy check and merge both of them 
+ * Fourth, reads that hash map and counts all arraylists amount per person
+ * Finally, sort and write csv file with fourth step's output
  * @author heeseok
  *
  */

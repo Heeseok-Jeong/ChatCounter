@@ -37,9 +37,9 @@ public class ParserForMac implements MessageParser{
 			RedundancyChecker rc = new RedundancyChecker();
 			
 			for (CSVRecord record : records) {
-				String date = record.get(0).substring(11, 16);
+				//String date = record.get(0).substring(11, 16);
 				String user = record.get(1);
-				String message = record.get(2);
+				//String message = record.get(2);
 				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(11,16), record.get(2));
 				
 				if(!map.containsKey(ndm.getName())) {

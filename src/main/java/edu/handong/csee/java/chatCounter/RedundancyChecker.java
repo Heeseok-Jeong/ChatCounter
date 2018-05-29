@@ -29,23 +29,17 @@ public class RedundancyChecker {
 		
 		return true;
 	}
-//		boolean bool = true;
-//		String check = "year+\"-\"+month+\"-\"+day+\" \"+hour+\":\"+min+\" \"+name+\" \"+message";
-//		if(messages.contains(check)) {
-//			messages.add(check);
-//			bool = true;
-//		}
-//		if(bool) {
-//			names.add(name);						
-//			bool = false;
-//		}
-//		return bool;
-//	}
 
+	/**
+	 * getter of ndmData
+	 */
 	public ArrayList<NDMData> getNdmData() {
 		return ndmData;
 	}
 
+	/**
+	 * setter of ndmData
+	 */
 	public void setNdmData(ArrayList<NDMData> ndmData) {
 		this.ndmData = ndmData;
 	}
