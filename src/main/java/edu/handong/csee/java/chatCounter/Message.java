@@ -4,6 +4,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Map;
+import java.util.Map.Entry;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * this class reads and parses all files with two different type logics and makes final HashMap
@@ -11,15 +15,24 @@ import java.util.HashMap;
  *
  */
 public class Message {
-	private HashMap<String, ArrayList<NDMData>> messages = new HashMap<String, ArrayList<NDMData>>();
+	private HashMap<String, ArrayList<NDMData>> csvMessages = new HashMap<String, ArrayList<NDMData>>();
+	private HashMap<String, ArrayList<NDMData>> txtMessages = new HashMap<String, ArrayList<NDMData>>();
+	private HashMap<String, ArrayList<NDMData>> allMessages = new HashMap<String, ArrayList<NDMData>>();
 
 	/**
-	 * getter of messages
+	 * getter of allMessages
 	 */
-	public HashMap<String, ArrayList<NDMData>> getMessages() {
-		return messages;
-	};
-	
+	public HashMap<String, ArrayList<NDMData>> getAllMessages() {
+		return allMessages;
+	}
+
+	/**
+	 * setter of allMessages
+	 */
+	public void setAllMessages(HashMap<String, ArrayList<NDMData>> allMessages) {
+		this.allMessages = allMessages;
+	}
+
 	public void setMessages(ArrayList<File> fileNames) throws IOException {
 		ParserForMac macParser = new ParserForMac();
 		ParserForWindows winParser = new ParserForWindows();
@@ -28,22 +41,40 @@ public class Message {
 				if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
 					continue;
 				}
-		        if(fileName.getName().contains(".csv")) {
-		        	macParser.parse(fileName);
-		        	messages.putAll(macParser.getMap());
-		        }
-		        else if(fileName.getName().contains(".txt")){
+				if(fileName.getName().contains(".txt")){
 		        	winParser.parse(fileName); 
-		        	messages.putAll(winParser.getMap());
+		        	allMessages.putAll(winParser.getMap());
 		        }
 		}
+		macParser.setMap(allMessages);
+		for(File fileName : fileNames) {
+			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
+				continue;
+			}
+				if(fileName.getName().contains(".csv")) {
+		        	macParser.parse(fileName);
+		        	allMessages.putAll(macParser.getMap());
+		        }
+		}
+//		allMessages.putAll(csvMessages);
+//		allMessages.putAll(txtMessages);
+//		allMessages = Stream.of(csvMessages, txtMessages).flatMap(m -> m.entrySet().stream())
+//			       .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+		
 	}
 
-	/**
-	 * setter of messages
-	 */
-	public void setMessages(HashMap<String, ArrayList<NDMData>> messages) {
-		this.messages = messages;
-	}
 }
+//
+//public HashMap<String, ArrayList<NDMData>> deepMerge(HashMap<String, ArrayList<NDMData>> original, HashMap<String, ArrayList<NDMData>> newMap) {
+//    for (Object key : newMap.keySet()) {
+//        if (newMap.get(key) instanceofMap && original.get(key) instanceof Map) {
+//            Map originalChild = (Map) original.get(key);
+//            Map newChild = (Map) newMap.get(key);
+//            original.put(key, deepMerge(originalChild, newChild));
+//        } else {
+//            original.put(key, newMap.get(key));
+//        }
+//    }
+//    return original;
+//}
 

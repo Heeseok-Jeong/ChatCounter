@@ -66,7 +66,7 @@ public class ChatCounter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		messages = msg.getMessages();
+		messages = msg.getAllMessages();
 		PMCounter pmc = new PMCounter();
 		finalOutput = pmc.computePM(messages);		
 		fw.writeCSV(savePath, finalOutput);
