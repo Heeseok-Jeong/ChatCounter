@@ -32,13 +32,13 @@ public class Message {
 		ParserForWindows winParser = new ParserForWindows();
 		
 		for(File fileName:fileNames) {
-				if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
-					continue;
-				}
-				if(fileName.getName().contains(".txt")){
-		        	winParser.parse(fileName); 
-		        	allMessages.putAll(winParser.getMap());
-		        }
+			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
+				continue;
+			}
+			if(fileName.getName().contains(".txt")){
+				winParser.parse(fileName); 
+		       	allMessages.putAll(winParser.getMap());
+		    }
 		}
 		macParser.setMap(allMessages);
 		for(File fileName : fileNames) {
