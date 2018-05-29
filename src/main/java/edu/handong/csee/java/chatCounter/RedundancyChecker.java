@@ -15,10 +15,19 @@ public class RedundancyChecker {
 	 * this method checks ndm includes ndmData and returns true or false
 	 */
 	public boolean checkRedundancy(NDMData ndm) {
-		result = true;
-		if(ndmData.contains(ndm)) result = false;
+		String date = ndm.getDate();
+		String message = ndm.getMessage();
+		String cDate;
+		String cMessage;
+		//result = true;
+		for(NDMData keys : ndmData) {
+			cDate = keys.getDate();
+			cMessage = keys.getMessage();
+			if(cDate.equals(date) && cMessage.equals(message)) return false;
+		}
+		//if(ndmData.contains(ndm)) result = false;
 		
-		return result;
+		return true;
 	}
 //		boolean bool = true;
 //		String check = "year+\"-\"+month+\"-\"+day+\" \"+hour+\":\"+min+\" \"+name+\" \"+message";

@@ -45,7 +45,7 @@ public class ParserForMac implements MessageParser{
 				if(!map.containsKey(ndm.getName())) {
 					map.put(user, new ArrayList<NDMData>());
 				}
-//				rc.setNdmData(ndmData);
+				rc.setNdmData(map.get(ndm.getName()));
 				user = ndm.getName();
 				if(rc.checkRedundancy(ndm)) {
 					map.get(ndm.getName()).add(ndm);

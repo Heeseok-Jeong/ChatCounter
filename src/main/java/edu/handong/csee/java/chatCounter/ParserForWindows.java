@@ -76,64 +76,63 @@ public class ParserForWindows implements MessageParser{
 		
 			while((temp = br.readLine()) != null) {
 				Matcher match1 = p1.matcher(temp);
-				Matcher match2 = p2.matcher(temp);
 				Matcher match3 = p3.matcher(temp);
+				Matcher match2 = p2.matcher(temp);
 				Matcher match4 = p4.matcher(temp);		
 				
 				if(match2.find()) {
 					year = Integer.parseInt(match2.group(1));
 					month = Integer.parseInt(match2.group(2));
 					day = Integer.parseInt(match2.group(3));
-				
-					if(match1.find()) {
-						name = match1.group(1);
-						message = match1.group(5);
-						hour = Integer.parseInt(match1.group(3));					
-						min = Integer.parseInt(match1.group(4));
-					
-						if(match1.group(2).equals("오후")) {
-							if(hour == 12) ;
-							else hour += 12;
-						}
-						if(match1.group(2).equals("오전") && hour == 12) hour = 0;
-					}
+					continue;
 				}
-				
 				else if(match4.find()) {
 					year = Integer.parseInt(match4.group(3));
 					month = Integer.parseInt(convert(match4.group(1)));
 					day = Integer.parseInt(match4.group(2));
-					if(match3.find()) {
-						name = match3.group(1);
-						message = match3.group(5);
-						hour = Integer.parseInt(match3.group(2));
-						min = Integer.parseInt(match3.group(3));	
+					continue;
+				}
+			
+				else if(match1.find()) {
+					name = match1.group(1);
+					message = match1.group(5);
+					hour = Integer.parseInt(match1.group(3));					
+					min = Integer.parseInt(match1.group(4));
 					
-						if(match1.group(4).equals("PM")) {
-							if(hour == 12) ;
-							else hour += 12;
-						}
-						if(match1.group(4).equals("AM") && hour == 12) hour = 0;
+					if(match1.group(2).equals("오후")) {
+						if(hour == 12) ;
+						else hour += 12;
 					}
+					if(match1.group(2).equals("오전") && hour == 12) hour = 0;
+				}
+				else if(match3.find()) {
+					name = match3.group(1);
+					message = match3.group(5);
+					hour = Integer.parseInt(match3.group(2));
+					min = Integer.parseInt(match3.group(3));	
+					
+					if(match3.group(4).equals("PM")) {
+						if(hour == 12) ;
+						else hour += 12;
+					}
+					if(match3.group(4).equals("AM") && hour == 12) hour = 0;
 				}
 				
-				else {
-					year = 0;
-					month = 0;
-					day = 0;
-					if(match3.find()) {
-						name = match3.group(1);
-						message = match3.group(5);
-						hour = Integer.parseInt(match3.group(2));
-						min = Integer.parseInt(match3.group(3));	
-					
-						if(match1.group(4).equals("PM")) {
-							if(hour == 12) ;
-							else hour += 12;
-						}
-						if(match1.group(4).equals("AM") && hour == 12) hour = 0;
-					}
-				}
+				
+				
+//				else if(match3.find()) {
+//					name = match3.group(1);
+//					message = match3.group(5);
+//					hour = Integer.parseInt(match3.group(2));
+//					min = Integer.parseInt(match3.group(3));	
+//					
+//					if(match1.group(4).equals("PM")) {
+//						if(hour == 12) ;						
+//						else hour += 12;
+//					}
+//					if(match1.group(4).equals("AM") && hour == 12) hour = 0;
+//				}
+				else continue;
 				
 				date = Integer.toString(hour) + ":" + Integer.toString(min);
 				NDMData ndm = new NDMData(name, date, message);
@@ -144,10 +143,7 @@ public class ParserForWindows implements MessageParser{
 				rc.setNdmData(ndmData);
 				if(rc.checkRedundancy(ndm)) {
 					map.get(ndm.getName()).add(ndm);
-//					ndmData.add(ndm);
-//					map.put(name, ndmData);
 				}
-				
 				//ndmData.add(ndm);
 				//map.put(name, ndmData);
 				

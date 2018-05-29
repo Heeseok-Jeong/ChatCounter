@@ -19,12 +19,15 @@ public class FileWriter {
 	 * this method has two parameters and makes a csv file with them
 	 */
 	public void writeCSV(String savePath, HashMap<String, Integer> finalOutput) {
-		try {
-			BufferedWriter bw = new BufferedWriter(
-			          new OutputStreamWriter(
-			                       new FileOutputStream(savePath), "UTF8"));
+		
+			BufferedWriter bw;
+			try {
+				bw = new BufferedWriter(
+				          new OutputStreamWriter(
+				                       new FileOutputStream(savePath), "UTF8"));
 			
-			bw.write("Kakaotalk_id, Count");
+			
+			bw.write("Kakaotalk_id, Count\n");
 			
 			
 			/*
@@ -33,14 +36,25 @@ public class FileWriter {
 			//Iterator it = FileWriter.sortByValue(finalOutput).iterator();
 			
 			for(String keys : finalOutput.keySet()) {
-				string = keys + ", " + finalOutput.get(keys);
+				string = keys + ", " + finalOutput.get(keys) + "\n";
 				bw.write(string);
 			}
 			bw.close();
-		} catch (IOException e) {
+			} catch (UnsupportedEncodingException e) {
 				// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
+				e.printStackTrace();
+			} catch (FileNotFoundException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+//		} catch (IOException e) {
+//				// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+ catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 	} 
 		
 		
