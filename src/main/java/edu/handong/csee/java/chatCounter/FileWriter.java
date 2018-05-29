@@ -3,6 +3,7 @@ package edu.handong.csee.java.chatCounter;
 import java.io.*;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
 
 /**
  * this class writes a csv file with a HashMap
@@ -10,7 +11,7 @@ import java.util.HashMap;
  *
  */
 public class FileWriter {
-	HashMap<String, Integer> output = new HashMap<String, Integer>();
+	//HashMap<String, Integer> output = new HashMap<String, Integer>();
 	ArrayList<String> kakaoID = new ArrayList<String>();
 	String string = null;
 	
@@ -22,37 +23,25 @@ public class FileWriter {
 			BufferedWriter bw = new BufferedWriter(
 			          new OutputStreamWriter(
 			                       new FileOutputStream(savePath), "UTF8"));
-			try {
-				bw.write("Kakaotalk_id, Count");
-			} catch (IOException e) {
+			
+			bw.write("Kakaotalk_id, Count");
+			
+			
+			/*
+			 * 할거 1. window용 파서 안돌아감 2. 중복체크되는지확인 3.정
+			 */
+			//Iterator it = FileWriter.sortByValue(finalOutput).iterator();
+			
+			for(String keys : finalOutput.keySet()) {
+				string = keys + ", " + finalOutput.get(keys);
+				bw.write(string);
+			}
+			bw.close();
+		} catch (IOException e) {
 				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			//정렬 해야한다.
-			//Iterator it = sortByValue(output).iterator();
-
-			for(String keys : output.keySet()) {
-				string = keys + ", " + output.get(keys);
-				try {
-					bw.write(string);
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-			}
-			try {
-				bw.close();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		} catch (UnsupportedEncodingException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	} 
 		
 		
 		
@@ -76,8 +65,28 @@ public class FileWriter {
 //	        }
 //	    }
 //	}
-		
-		
-	}
+
+  
+
+	    // Note: this comparator imposes orderings that are inconsistent with equals.    
+//	public static HashMap<String, Integer> sortByValue(final HashMap<String, Integer> finalOutput){
+//        HashMap<String, Integer> returnHash = new HashMap<>();
+//        list.addAll(map.keySet());
+//         
+//        Collections.sort(list,new Comparator(){
+//             
+//            public int compare(Object o1,Object o2){
+//                Object v1 = map.get(o1);
+//                Object v2 = map.get(o2);
+//                 
+//                return ((Comparable) v1).compareTo(v2);
+//            }
+//             
+//        });
+//        Collections.reverse(list); // 주석시 오름차순
+//        return list;
+//    }
+//}
+//</string></string,integer></string,integer>
 
 }

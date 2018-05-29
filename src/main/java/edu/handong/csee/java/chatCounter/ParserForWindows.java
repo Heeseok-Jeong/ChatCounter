@@ -23,7 +23,7 @@ public class ParserForWindows implements MessageParser{
 	String date;
 	
 	String user = new String();
-	String name, message, temp;
+	String name, message;
 	int year, month, day, hour, min;
 	
 	/**
@@ -59,28 +59,22 @@ public class ParserForWindows implements MessageParser{
 	 * this method overrides its interface and reads txt type files and makes its contents to HashMap
 	 */
 	public void parse(File fileName) { 
-		BufferedReader br = null;
+		String temp;
+		BufferedReader br;
 		try {
-			br = new BufferedReader(
-			          new InputStreamReader(
-			                       new FileInputStream(fileName), "UTF8"));
-		} catch (UnsupportedEncodingException e) {				
-			e.printStackTrace();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}
-		//분류하
-		String pKorMessage = "\\[(.+)\\]\\s\\[(.+)\\s(\\d+):(\\d+)\\]\\s(.+)";
-		Pattern p1 = Pattern.compile(pKorMessage);
-		String pKorDate = "([0-9]+).\\s([0-9]+).\\s([0-9]+).\\s.+";
-		Pattern p2 = Pattern.compile(pKorDate);
-		String pEngMessage = "\\[(.+)\\]\\s\\[(\\d+):(\\d+)\\s(.+)\\]\\s(.+)";
-		Pattern p3 = Pattern.compile(pEngMessage);
-		String pEngDate = ".+,\\s(.+)\\s([0-9]+),\\s([0-9]+)\\s.+";
-		Pattern p4 = Pattern.compile(pEngDate);
+			br = new BufferedReader( new InputStreamReader(new FileInputStream(fileName), "UTF8"));
 		
-		try {
-			for(temp = br.readLine(); temp != null;) {
+		//분류하
+			String pKorMessage = "\\[(.+)\\]\\s\\[(.+)\\s([0-9]+):([0-9]+)\\]\\s(.+)";
+			Pattern p1 = Pattern.compile(pKorMessage);
+			String pKorDate = "-+\\s([0-9]+).\\s([0-9]+).\\s([0-9]+).\\s.+\\s-+";
+			Pattern p2 = Pattern.compile(pKorDate);
+			String pEngMessage = "\\[(.+)\\]\\s\\[([0-9]+):([0-9]+)\\s(.+)\\]\\s(.+)";
+			Pattern p3 = Pattern.compile(pEngMessage);
+			String pEngDate = "-+\\s.+,\\s(.+)\\s([0-9]+),\\s([0-9]+)\\s.+\\s-+";
+			Pattern p4 = Pattern.compile(pEngDate);
+		
+			while((temp = br.readLine()) != null) {
 				Matcher match1 = p1.matcher(temp);
 				Matcher match2 = p2.matcher(temp);
 				Matcher match3 = p3.matcher(temp);
@@ -162,23 +156,26 @@ public class ParserForWindows implements MessageParser{
 				//할거 3. FileWriter 구현하
 				
 				
-				br.close();	
-			}
+				
+			} 
+			br.close();	
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (NumberFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	} 
 		
 		//ndm 각각 어레이리스트에 저장하
 		
-		
-	    try {
-			br.close();
-		} catch (IOException e) {				
-			e.printStackTrace();
-		}	
-		
-	}
 
 	private String convert(String group) {
 		String month = "0";
