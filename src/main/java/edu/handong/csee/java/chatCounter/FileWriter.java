@@ -23,6 +23,7 @@ public class FileWriter {
 	 */
 	public void writeCSV(String savePath, HashMap<String, Integer> finalOutput) {
 		
+		
 			BufferedWriter bw;
 			try {
 				bw = new BufferedWriter(

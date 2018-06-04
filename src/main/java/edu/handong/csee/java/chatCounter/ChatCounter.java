@@ -67,6 +67,11 @@ public class ChatCounter {
 			e.printStackTrace();
 		}
 		messages = msg.getAllMessages();
+//		for(NDMData data : messages.get("이현지")) {
+//			System.out.println(data.getDate());
+//			System.out.println(data.getMessage());
+//		}
+		
 		PMCounter pmc = new PMCounter();
 		finalOutput = pmc.computePM(messages);		
 		fw.writeCSV(savePath, finalOutput);

@@ -134,15 +134,25 @@ public class ParserForWindows implements MessageParser{
 //				}
 				else continue;
 				
-				date = Integer.toString(hour) + ":" + Integer.toString(min);
+				
+				date = String.format("%02d", hour) + ":" + Integer.toString(min);
 				NDMData ndm = new NDMData(name, date, message);
+//				if(ndmData != null) ndmData.add(ndm);
 				if(!map.containsKey(ndm.getName())) {
 					map.put(name, new ArrayList<NDMData>());
 				}
 				RedundancyChecker rc = new RedundancyChecker();
 				rc.setNdmData(ndmData);
 				if(rc.checkRedundancy(ndm)) {
+					ndmData.add(ndm);
+//					System.out.println("2");
 					map.get(ndm.getName()).add(ndm);
+//					for(NDMData data:map.get(ndm.getName())) {
+//						System.out.println(data.getName());
+//						System.out.println(data.getDate());
+//						System.out.println(data.getMessage());
+//					}
+					
 				}
 				//ndmData.add(ndm);
 				//map.put(name, ndmData);
