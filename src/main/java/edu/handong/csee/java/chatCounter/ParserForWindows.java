@@ -135,7 +135,7 @@ public class ParserForWindows implements MessageParser{
 				else continue;
 				
 				
-				date = String.format("%02d", hour) + ":" + Integer.toString(min);
+				date = String.format("%02d", hour) + ":" + String.format("%02d", min);
 				NDMData ndm = new NDMData(name, date, message);
 //				if(ndmData != null) ndmData.add(ndm);
 				if(!map.containsKey(ndm.getName())) {
@@ -160,8 +160,6 @@ public class ParserForWindows implements MessageParser{
 				//할거 1. match1,3번 시간 am, pm, 오전, 오후 통일해주기
 				//할거 2. 여기서 만든거 해쉬맵 넣
 				//할거 3. FileWriter 구현하
-				
-				
 				
 			} 
 			br.close();	

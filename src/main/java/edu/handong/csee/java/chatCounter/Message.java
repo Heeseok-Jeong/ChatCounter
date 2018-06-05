@@ -27,6 +27,9 @@ public class Message {
 		this.allMessages = allMessages;
 	}
 
+	/**
+	 * it reads txt files and csv files and properly puts data into allMessages
+	 */
 	public void setMessages(ArrayList<File> fileNames) throws IOException {
 		ParserForMac macParser = new ParserForMac();
 		ParserForWindows winParser = new ParserForWindows();

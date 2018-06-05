@@ -66,12 +66,15 @@ public class ChatCounter {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		messages = msg.getAllMessages();
-//		for(NDMData data : messages.get("이현지")) {
-//			System.out.println(data.getDate());
-//			System.out.println(data.getMessage());
-//		}
 		
+		//test
+		messages = msg.getAllMessages();
+		for(NDMData data : messages.get("미소 :)")) {
+			System.out.println(data.getDate());
+			System.out.println(data.getMessage());
+		}
+		
+		//실행파트 
 		PMCounter pmc = new PMCounter();
 		finalOutput = pmc.computePM(messages);		
 		fw.writeCSV(savePath, finalOutput);
