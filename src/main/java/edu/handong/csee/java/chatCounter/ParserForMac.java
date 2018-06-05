@@ -22,26 +22,27 @@ public class ParserForMac implements MessageParser{
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	//String user = new String();
 	boolean result = true;
-	
+
+	@Override
 	/**
-	 * this method reads csv type files and makes its contents to HashMap
+	 * this method reads csv type files and makes its contents to HashMap, Override
 	 */
 	public void parse(File fileName) {
-			Reader in = null;
-			
-				try {
-					in = new FileReader(fileName);
-				
+		Reader in = null;
+
+		try {
+			in = new FileReader(fileName);
+
 			Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
-			
+
 			RedundancyChecker rc = new RedundancyChecker();
-			
+
 			for (CSVRecord record : records) {
 				//String date = record.get(0).substring(11, 16);
 				String user = record.get(1);
 				//String message = record.get(2);
 				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(11,16), record.get(2));
-				
+
 				if(!map.containsKey(ndm.getName())) {
 					map.put(user, new ArrayList<NDMData>());
 				}
@@ -51,18 +52,18 @@ public class ParserForMac implements MessageParser{
 					ndmData.add(ndm);
 					map.get(ndm.getName()).add(ndm);
 				}
-//				ndmData.add(ndm);
-//				map.put(user, ndmData);
+				//				ndmData.add(ndm);
+				//				map.put(user, ndmData);
 			}
-			} catch (FileNotFoundException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-				
-				
-			
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+
+
 
 	}
 
@@ -94,6 +95,6 @@ public class ParserForMac implements MessageParser{
 		this.ndmData = ndmData;
 	}
 
-	
-	
+
+
 }

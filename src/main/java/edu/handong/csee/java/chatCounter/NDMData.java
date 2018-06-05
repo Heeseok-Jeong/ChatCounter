@@ -9,7 +9,7 @@ public class NDMData {
 	private String name;
 	private String date;
 	private String message;
-	
+
 	/**
 	 * this constructor sets ndm
 	 */
@@ -18,7 +18,7 @@ public class NDMData {
 		this.date = date;
 		this.message = message;
 	}
-	
+
 	/**
 	 * this is default type constructor
 	 */
@@ -67,6 +67,6 @@ public class NDMData {
 	public void setMessage(String message) {
 		this.message = message;
 	}
-	
-	
+
+
 }

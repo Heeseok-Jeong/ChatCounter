@@ -15,17 +15,17 @@ public class FileLoader {
 		ArrayList<File> fileNames = getFileNames(path);
 		return fileNames;
 	}
-	
+
 	private ArrayList<File> getFileNames(String path) {
 		ArrayList<File> fileNames = new ArrayList<File>();
-		
+
 		//get file names in the directory
 		File myPath = new File(path);
-	
+
 		for(File fileName:myPath.listFiles()) {
 			fileNames.add(fileName);
 		} 
-		
+
 		return fileNames;
 	}
 

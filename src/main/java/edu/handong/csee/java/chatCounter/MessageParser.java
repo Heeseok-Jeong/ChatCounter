@@ -13,9 +13,9 @@ public interface MessageParser {
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	String user = new String();
-	
+
 	/**
-	 * declare a method parse
+	 * declare a method parse to override
 	 */
 	public void parse(File fileName) ;
 }

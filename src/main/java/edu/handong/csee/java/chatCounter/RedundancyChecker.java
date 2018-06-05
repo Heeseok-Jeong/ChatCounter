@@ -10,7 +10,7 @@ import java.util.ArrayList;
 public class RedundancyChecker {
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	boolean result;
-	
+
 	/**
 	 * this method checks ndm includes ndmData and returns true or false
 	 */
@@ -21,17 +21,21 @@ public class RedundancyChecker {
 		String cName;
 		String cDate;
 		String cMessage;
-		
+
 		//result = true;
 		for(NDMData keys : ndmData) {
 			cDate = keys.getDate();
 			cMessage = keys.getMessage();
 			cName = keys.getName();
 			if(cDate.equals(date) && cMessage.equals(message) && cName.equals(name)) return false;
-			if(cDate.equals(date) && cMessage.equals("cmd창에서 gradle -v 입력하니까 에러 메세지가 뜹니당..")) return false;
+
+
+			//if(cDate.equals(date) && cMessage.equals("cmd창에서 gradle -v 입력하니까 에러 메세지가 뜹니당..")) return false;
+			//if(cDate.equals(date) && cMessage.contains(message)) return false;
+			//if(date.equals(cDate) && message.contains(cMessage)) return false;
 		}
 		//if(ndmData.contains(ndm)) result = false;
-		
+
 		return true;
 	}
 

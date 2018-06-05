@@ -33,15 +33,15 @@ public class Message {
 	public void setMessages(ArrayList<File> fileNames) throws IOException {
 		ParserForMac macParser = new ParserForMac();
 		ParserForWindows winParser = new ParserForWindows();
-		
+
 		for(File fileName:fileNames) {
 			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
 				continue;
 			}
 			if(fileName.getName().contains(".txt")){
 				winParser.parse(fileName); 
-		       	allMessages.putAll(winParser.getMap());
-		    }
+				allMessages.putAll(winParser.getMap());
+			}
 		}
 		macParser.setMap(allMessages);
 		for(File fileName : fileNames) {
@@ -49,15 +49,15 @@ public class Message {
 				continue;
 			}
 			if(fileName.getName().contains(".csv")) {
-		       	macParser.parse(fileName);
-		       	allMessages.putAll(macParser.getMap());
-		    }
+				macParser.parse(fileName);
+				allMessages.putAll(macParser.getMap());
+			}
 		}
-//		allMessages.putAll(csvMessages);
-//		allMessages.putAll(txtMessages);
-//		allMessages = Stream.of(csvMessages, txtMessages).flatMap(m -> m.entrySet().stream())
-//			       .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
-		
+		//		allMessages.putAll(csvMessages);
+		//		allMessages.putAll(txtMessages);
+		//		allMessages = Stream.of(csvMessages, txtMessages).flatMap(m -> m.entrySet().stream())
+		//			       .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
+
 	}
 
 }

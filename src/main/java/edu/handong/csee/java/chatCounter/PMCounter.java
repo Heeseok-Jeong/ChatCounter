@@ -13,19 +13,19 @@ public class PMCounter {
 	ArrayList<String> string = new ArrayList<String>();
 	ArrayList<Integer> integer = new ArrayList<Integer>();
 	Integer size;
-	
+
 	/**
 	 * this method makes count HashMap with messages and returns count 
 	 */
-	public HashMap<String, Integer> computePM(HashMap<String, ArrayList<NDMData>> messages) {
+	public HashMap<String, Integer> computePM(HashMap<String, ArrayList<NDMData>> messages) throws SizeZeroException {
 		for(String keys : messages.keySet()) {
 			size = messages.get(keys).size();
-//			if(count.containsKey(keys) != messages.containsKey(keys)) {
+			//			if(count.containsKey(keys) != messages.containsKey(keys)) {
 			count.put(keys, size);
-//			}
-			
+			//			}
+
 		}
-		
+
 		return count;
 	}
 

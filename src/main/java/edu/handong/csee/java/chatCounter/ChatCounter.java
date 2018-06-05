@@ -24,7 +24,7 @@ public class ChatCounter {
 	static ChatCounter chCounter = new ChatCounter();
 	static String openPath = new String();
 	static String savePath = new String();
-	
+
 	HashMap<String, ArrayList<NDMData>> messages = new HashMap<String, ArrayList<NDMData>>();
 	HashMap<String, Integer> finalOutput = new HashMap<String, Integer>();
 	String input;
@@ -45,7 +45,7 @@ public class ChatCounter {
 		FileLoader fl = new FileLoader();
 		Message msg = new Message();
 		FileWriter fw = new FileWriter();
-		
+
 		//APACHE COMMONS CLI
 		Options options = createOptions();
 		if(parseOptions(options, args)){
@@ -55,32 +55,37 @@ public class ChatCounter {
 			}
 			// path is required (necessary) data so no need to have a branch.
 			System.out.println("You provided \"" + input + "\" as the value of the option i");
-			
+
 			// path is required (necessary) data so no need to have a branch.
 			System.out.println("You provided \"" + output + "\" as the value of the option o");
 		}
-		
+
 		try {
 			msg.setMessages(fl.readDirectory(openPath));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
 		//test
 		messages = msg.getAllMessages();
-		for(NDMData data : messages.get("미소 :)")) {
+		for(NDMData data : messages.get("남재창")) {
 			System.out.println(data.getDate());
 			System.out.println(data.getMessage());
 		}
-		
+
 		//실행파트 
 		PMCounter pmc = new PMCounter();
-		finalOutput = pmc.computePM(messages);		
+		try {
+			finalOutput = pmc.computePM(messages);
+		} catch (SizeZeroException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}		
 		fw.writeCSV(savePath, finalOutput);
-		
+
 	}
-	
+
 
 	private boolean parseOptions(Options options, String[] args) {
 		CommandLineParser parser = new DefaultParser();
@@ -120,15 +125,15 @@ public class ChatCounter {
 				.argName("Directory Path")
 				.required()
 				.build());
-		
+
 		// add options by using OptionBuilder
 		options.addOption(Option.builder("h").longOpt("help")
-		        .desc("Help")
-		        .build());
+				.desc("Help")
+				.build());
 
 		return options;
 	}
-	
+
 	private void printHelp(Options options) {
 		// automatically generate the help statement
 		HelpFormatter formatter = new HelpFormatter();
