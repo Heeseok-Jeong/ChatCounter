@@ -22,8 +22,6 @@ import java.util.*;
  */
 public class ChatCounter {
 	static ChatCounter chCounter = new ChatCounter();
-	static String openPath = new String();
-	static String savePath = new String();
 
 	HashMap<String, ArrayList<NDMData>> messages = new HashMap<String, ArrayList<NDMData>>();
 	HashMap<String, Integer> finalOutput = new HashMap<String, Integer>();
@@ -35,13 +33,14 @@ public class ChatCounter {
 	 * this method is main method to run.
 	 */
 	public static void main(String[] args) {
-		openPath = args[1];
-		savePath = args[3];
+//		openPath = args[1];
+//		savePath = args[3];
+//		threadAmounts = Integer.parseInt(args[5]);
 		//chCounter.run("/Users/heeseok/Documents/한동대/수업/2-1학기/자바 프로그래밍/카카오톡 채팅파일");
-		chCounter.run(openPath, savePath, args);
+		chCounter.run(args);
 	}
 
-	private void run(String openPath, String savePath, String[] args) {
+	private void run(String[] args) {
 		FileLoader fl = new FileLoader();
 		Message msg = new Message();
 		FileWriter fw = new FileWriter();
@@ -61,7 +60,8 @@ public class ChatCounter {
 		}
 
 		try {
-			msg.setMessages(fl.readDirectory(openPath));
+//			msg.setMessages(fl.readDirectory(openPath));
+			msg.setMessages(fl.readDirectory(input));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -88,7 +88,8 @@ public class ChatCounter {
 
 		finalOutput = pmc.computePM(messages);
 
-		fw.writeCSV(savePath, finalOutput);
+//		fw.writeCSV(savePath, finalOutput);
+		fw.writeCSV(output, finalOutput);
 
 	}
 
@@ -115,7 +116,7 @@ public class ChatCounter {
 	// Definition Stage
 	private Options createOptions() {
 		Options options = new Options();
-
+		
 		// add options by using OptionBuilder
 		options.addOption(Option.builder("i").longOpt("input")
 				.desc("Set a directory path that contains input files")
