@@ -1,19 +1,19 @@
 package edu.handong.csee.java.chatCounter;
 
 /**
- * This class is my own Exception class. It checks about size is 0
+ * This class is my own Exception class. It'll checks about if there are files to read.
  * @author heeseok
  */
 public class MessageZeroException extends Exception{
 	/**
-	 * default constructor of SizeZeroException
+	 * default constructor of MessageZeroException
 	 */
 	public MessageZeroException() {
 		super("edu.handong.csee.java.chatCounter.MessageZeroException occured!");
 	}
 
 	/**
-	 * With String parameter constructor of SizeZeroException
+	 * With String parameter constructor of MessageZeroException
 	 */
 	public MessageZeroException (String message)
 	{

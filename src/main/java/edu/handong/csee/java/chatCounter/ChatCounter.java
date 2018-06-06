@@ -67,7 +67,7 @@ public class ChatCounter {
 			e.printStackTrace();
 		}
 
-		
+
 		messages = msg.getAllMessages();
 		if(messages.size() == 0)
 			try {
@@ -76,18 +76,18 @@ public class ChatCounter {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-		
+
 		//test
-//		for(NDMData data : messages.get("남재창")) {
-//			System.out.println(data.getDate());
-//			System.out.println(data.getMessage());
-//		}
+		//		for(NDMData data : messages.get("남재창")) {
+		//			System.out.println(data.getDate());
+		//			System.out.println(data.getMessage());
+		//		}
 
 		//실행파트 
 		PMCounter pmc = new PMCounter();
-	
+
 		finalOutput = pmc.computePM(messages);
-				
+
 		fw.writeCSV(savePath, finalOutput);
 
 	}

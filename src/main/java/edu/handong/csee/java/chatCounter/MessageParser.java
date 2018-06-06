@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * this is interface for ParserForMac class and ParserForWindows
+ * this is interface for ParserForMac class and ParserForWindows class
  * @author heeseok
  *
  */
