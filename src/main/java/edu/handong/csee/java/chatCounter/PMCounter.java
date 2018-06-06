@@ -17,7 +17,7 @@ public class PMCounter {
 	/**
 	 * this method makes count HashMap with messages and returns count 
 	 */
-	public HashMap<String, Integer> computePM(HashMap<String, ArrayList<NDMData>> messages) throws SizeZeroException {
+	public HashMap<String, Integer> computePM(HashMap<String, ArrayList<NDMData>> messages) {
 		for(String keys : messages.keySet()) {
 			size = messages.get(keys).size();
 			//			if(count.containsKey(keys) != messages.containsKey(keys)) {

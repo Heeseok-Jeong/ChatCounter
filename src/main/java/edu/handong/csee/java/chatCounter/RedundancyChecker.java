@@ -27,8 +27,17 @@ public class RedundancyChecker {
 			cDate = keys.getDate();
 			cMessage = keys.getMessage();
 			cName = keys.getName();
-			if(cDate.equals(date) && cMessage.equals(message) && cName.equals(name)) return false;
-
+			String longMessage;
+			String shortMessage;
+			if(cMessage.length() > message.length()) {
+				longMessage = cMessage;
+				shortMessage = message;
+			}
+			else {
+				longMessage = message;
+				shortMessage = cMessage;
+			}
+			if(cDate.equals(date) && longMessage.trim().startsWith(shortMessage.trim()) && cName.equals(name)) return false;
 
 			//if(cDate.equals(date) && cMessage.equals("cmd창에서 gradle -v 입력하니까 에러 메세지가 뜹니당..")) return false;
 			//if(cDate.equals(date) && cMessage.contains(message)) return false;

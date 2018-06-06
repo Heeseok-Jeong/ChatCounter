@@ -67,21 +67,27 @@ public class ChatCounter {
 			e.printStackTrace();
 		}
 
-		//test
+		
 		messages = msg.getAllMessages();
-		for(NDMData data : messages.get("남재창")) {
-			System.out.println(data.getDate());
-			System.out.println(data.getMessage());
-		}
+		if(messages.size() == 0)
+			try {
+				throw new MessageZeroException("Please Input correct Path!");
+			} catch (MessageZeroException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		//test
+//		for(NDMData data : messages.get("남재창")) {
+//			System.out.println(data.getDate());
+//			System.out.println(data.getMessage());
+//		}
 
 		//실행파트 
 		PMCounter pmc = new PMCounter();
-		try {
-			finalOutput = pmc.computePM(messages);
-		} catch (SizeZeroException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}		
+	
+		finalOutput = pmc.computePM(messages);
+				
 		fw.writeCSV(savePath, finalOutput);
 
 	}
