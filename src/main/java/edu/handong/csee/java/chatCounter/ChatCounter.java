@@ -27,6 +27,7 @@ public class ChatCounter {
 	HashMap<String, Integer> finalOutput = new HashMap<String, Integer>();
 	String input;
 	String output;
+	int numThreads;
 	boolean help;
 
 	/**
@@ -37,10 +38,10 @@ public class ChatCounter {
 //		savePath = args[3];
 //		threadAmounts = Integer.parseInt(args[5]);
 		//chCounter.run("/Users/heeseok/Documents/한동대/수업/2-1학기/자바 프로그래밍/카카오톡 채팅파일");
-		chCounter.run(args);
+		chCounter.doJob(args);
 	}
 
-	private void run(String[] args) {
+	private void doJob(String[] args) {
 		FileLoader fl = new FileLoader();
 		Message msg = new Message();
 		FileWriter fw = new FileWriter();
@@ -61,7 +62,7 @@ public class ChatCounter {
 
 		try {
 //			msg.setMessages(fl.readDirectory(openPath));
-			msg.setMessages(fl.readDirectory(input));
+			msg.setMessages(fl.readDirectory(input), numThreads);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -101,6 +102,7 @@ public class ChatCounter {
 
 			CommandLine cmd = parser.parse(options, args);
 
+			numThreads = Integer.parseInt(cmd.getOptionValue("c"));
 			input = cmd.getOptionValue("i");
 			output = cmd.getOptionValue("o");
 			help = cmd.hasOption("h");
@@ -116,6 +118,15 @@ public class ChatCounter {
 	// Definition Stage
 	private Options createOptions() {
 		Options options = new Options();
+		
+
+		// add options by using OptionBuilder
+		options.addOption(Option.builder("c").longOpt("thread")
+				.desc("Set amounts of using threads")
+				.hasArg()
+				.argName("Thread Numbers")
+				.required()
+				.build());
 		
 		// add options by using OptionBuilder
 		options.addOption(Option.builder("i").longOpt("input")

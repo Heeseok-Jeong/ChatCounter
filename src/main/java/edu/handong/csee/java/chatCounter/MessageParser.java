@@ -9,7 +9,7 @@ import java.util.HashMap;
  * @author heeseok
  *
  */
-public interface MessageParser {
+public interface MessageParser{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	String user = new String();

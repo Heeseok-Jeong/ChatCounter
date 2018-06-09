@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * @author heeseok
  *
  */
-public class ParserForWindows implements MessageParser{
+public class ParserForWindows implements MessageParser, Runnable{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	String date;
@@ -193,6 +193,12 @@ public class ParserForWindows implements MessageParser{
 		case "June" : month = "6";
 		}
 		return month;
+	}
+
+	@Override
+	public void run() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

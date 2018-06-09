@@ -17,12 +17,12 @@ import org.apache.commons.csv.CSVRecord;
  * @author heeseok
  *
  */
-public class ParserForMac implements MessageParser{
+public class ParserForMac implements MessageParser, Runnable{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	//String user = new String();
 	boolean result = true;
-
+	
 	@Override
 	/**
 	 * this method reads csv type files and makes its contents to HashMap, Override
@@ -93,6 +93,12 @@ public class ParserForMac implements MessageParser{
 	 */
 	public void setNdmData(ArrayList<NDMData> ndmData) {
 		this.ndmData = ndmData;
+	}
+
+	@Override
+	public void run() {
+		
+		
 	}
 
 

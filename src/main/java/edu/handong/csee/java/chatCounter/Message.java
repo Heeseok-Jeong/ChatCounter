@@ -10,7 +10,25 @@ import java.util.HashMap;
  * @author heeseok
  *
  */
-public class Message {
+public class Message implements Runnable{
+//	private static ArrayList<File> fileNames;
+//	private static void setFileNames(ArrayList<File> fileNames) {
+//		Message.fileNames = fileNames;
+//	}
+//
+//	private static ArrayList<File> getFileNames() {
+//		return fileNames;
+//	}
+	private File fileName;
+
+	private File getFileName() {
+		return fileName;
+	}
+
+	private void setFileName(File fileName) {
+		this.fileName = fileName;
+	}
+
 	private HashMap<String, ArrayList<NDMData>> allMessages = new HashMap<String, ArrayList<NDMData>>();
 
 	/**
@@ -29,35 +47,94 @@ public class Message {
 
 	/**
 	 * it reads txt files and csv files and properly puts data into allMessages
+	 * @param threads 
 	 */
-	public void setMessages(ArrayList<File> fileNames) throws IOException {
-		ParserForMac macParser = new ParserForMac();
-		ParserForWindows winParser = new ParserForWindows();
-
-		for(File fileName:fileNames) {
-			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
-				continue;
-			}
-			if(fileName.getName().contains(".txt")){
-				winParser.parse(fileName); 
-				allMessages.putAll(winParser.getMap());
+	public void setMessages(ArrayList<File> fileNames, int numThreads) throws IOException {
+//		setFileNames(fileNames);
+		//쓰레드 
+		Thread[] threads = new Thread[numThreads];
+		
+		for(int i=0; i<numThreads; i++) {
+			threads[i] = new Thread(new Message());
+			threads[i].start();
+		}
+		for(Thread thread:threads) {
+			try {
+				thread.join();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
 			}
 		}
-		macParser.setMap(allMessages);
-		for(File fileName : fileNames) {
-			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
-				continue;
-			}
-			if(fileName.getName().contains(".csv")) {
-				macParser.parse(fileName);
-				allMessages.putAll(macParser.getMap());
-			}
-		}
+		
+		//작업 
+//		for(File fileName:fileNames) {
+//			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
+//				continue;
+//			}
+//			if(fileName.getName().contains(".txt")){
+//				winParser.parse(fileName); 
+//				allMessages.putAll(winParser.getMap());
+//			}
+//		}
+//		macParser.setMap(allMessages);
+//		for(File fileName : fileNames) {
+//			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
+//				continue;
+//			}
+//			if(fileName.getName().contains(".csv")) {
+//				macParser.parse(fileName);
+//				allMessages.putAll(macParser.getMap());
+//			}
+//		}
 		//		allMessages.putAll(csvMessages);
 		//		allMessages.putAll(txtMessages);
 		//		allMessages = Stream.of(csvMessages, txtMessages).flatMap(m -> m.entrySet().stream())
 		//			       .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
 
+	}
+
+	
+	//문제점 - 런 할 때 파일 하나만 읽어야하는데 어레이리스트로 다 읽어서 문제다.
+	@Override
+	public void run() {
+		ParserForMac macParser = new ParserForMac();
+		ParserForWindows winParser = new ParserForWindows();
+//		getFileNames();
+		
+
+		if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
+			if(fileName.getName().contains(".txt")){
+				winParser.parse(fileName); 
+				allMessages.putAll(winParser.getMap());
+			}
+
+			macParser.setMap(allMessages);
+
+			if(fileName.getName().contains(".csv")) {
+				macParser.parse(fileName);
+				allMessages.putAll(macParser.getMap());
+			}
+		}
+
+//		for(File fileName:fileNames) {
+//			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
+//				continue;
+//			}
+//			if(fileName.getName().contains(".txt")){
+//				winParser.parse(fileName); 
+//				allMessages.putAll(winParser.getMap());
+//			}
+//		}
+//		macParser.setMap(allMessages);
+//		for(File fileName : fileNames) {
+//			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
+//				continue;
+//			}
+//			if(fileName.getName().contains(".csv")) {
+//				macParser.parse(fileName);
+//				allMessages.putAll(macParser.getMap());
+//			}
+//		}
 	}
 
 }
