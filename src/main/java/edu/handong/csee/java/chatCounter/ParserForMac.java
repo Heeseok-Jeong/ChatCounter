@@ -61,10 +61,6 @@ public class ParserForMac implements MessageParser, Runnable{
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-
-
-
-
 	}
 
 	/**
@@ -100,7 +96,4 @@ public class ParserForMac implements MessageParser, Runnable{
 		
 		
 	}
-
-
-
 }

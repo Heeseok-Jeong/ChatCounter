@@ -21,15 +21,13 @@ public class Message implements Runnable{
 //	}
 	private File fileName;
 
-	private File getFileName() {
-		return fileName;
-	}
-
-	private void setFileName(File fileName) {
+	public Message(File fileName) {
 		this.fileName = fileName;
 	}
+	
+	public Message() {};
 
-	private HashMap<String, ArrayList<NDMData>> allMessages = new HashMap<String, ArrayList<NDMData>>();
+	static private HashMap<String, ArrayList<NDMData>> allMessages = new HashMap<String, ArrayList<NDMData>>();
 
 	/**
 	 * getter of allMessages
@@ -52,19 +50,32 @@ public class Message implements Runnable{
 	public void setMessages(ArrayList<File> fileNames, int numThreads) throws IOException {
 //		setFileNames(fileNames);
 		//쓰레드 
+		
 		Thread[] threads = new Thread[numThreads];
 		
-		for(int i=0; i<numThreads; i++) {
-			threads[i] = new Thread(new Message());
-			threads[i].start();
-		}
-		for(Thread thread:threads) {
-			try {
-				thread.join();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
+//		for(File fileName : fileNames) {
+//			for(int i=0; i<numThreads; i++) {
+//				threads[i] = new Thread(new Message(fileName));
+//				threads[i].start();
+//			}
+//		}
+		int j;
+		for(j = 0; j < fileNames.size();) {
+			for(int i=0; i<numThreads; i++) {
+				fileName = fileNames.get(j++);
+				if(j == fileNames.size()) break;
+				threads[i] = new Thread(new Message(fileName));
+				threads[i].start();
+			}
+			for(Thread thread:threads) {
+				try {
+					thread.join();
+				} catch (InterruptedException e) {
+					e.printStackTrace();
+				}
 			}
 		}
+		
 		
 		//작업 
 //		for(File fileName:fileNames) {
@@ -100,9 +111,8 @@ public class Message implements Runnable{
 		ParserForMac macParser = new ParserForMac();
 		ParserForWindows winParser = new ParserForWindows();
 //		getFileNames();
-		
 
-		if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
+//		if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
 			if(fileName.getName().contains(".txt")){
 				winParser.parse(fileName); 
 				allMessages.putAll(winParser.getMap());
@@ -114,7 +124,8 @@ public class Message implements Runnable{
 				macParser.parse(fileName);
 				allMessages.putAll(macParser.getMap());
 			}
-		}
+			this.setAllMessages(allMessages);
+//		}
 
 //		for(File fileName:fileNames) {
 //			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
@@ -138,17 +149,4 @@ public class Message implements Runnable{
 	}
 
 }
-//
-//public HashMap<String, ArrayList<NDMData>> deepMerge(HashMap<String, ArrayList<NDMData>> original, HashMap<String, ArrayList<NDMData>> newMap) {
-//    for (Object key : newMap.keySet()) {
-//        if (newMap.get(key) instanceofMap && original.get(key) instanceof Map) {
-//            Map originalChild = (Map) original.get(key);
-//            Map newChild = (Map) newMap.get(key);
-//            original.put(key, deepMerge(originalChild, newChild));
-//        } else {
-//            original.put(key, newMap.get(key));
-//        }
-//    }
-//    return original;
-//}
 
