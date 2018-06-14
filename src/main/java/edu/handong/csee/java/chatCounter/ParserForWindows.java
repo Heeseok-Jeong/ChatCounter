@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * @author heeseok
  *
  */
-public class ParserForWindows implements MessageParser, Runnable{
+public class ParserForWindows implements MessageParser{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	String date;
@@ -61,8 +61,10 @@ public class ParserForWindows implements MessageParser, Runnable{
 	public void parse(File fileName) { 
 		String temp;
 		BufferedReader br;
+
 		try {
 			br = new BufferedReader( new InputStreamReader(new FileInputStream(fileName), "UTF8"));
+
 
 			//분류하
 			String pKorMessage = "\\[(.+)\\]\\s\\[(.+)\\s([0-9]+):([0-9]+)\\]\\s(.+)";
@@ -141,27 +143,25 @@ public class ParserForWindows implements MessageParser, Runnable{
 				if(!map.containsKey(ndm.getName())) {
 					map.put(name, new ArrayList<NDMData>());
 				}
-				RedundancyChecker rc = new RedundancyChecker();
-				rc.setNdmData(ndmData);
-				if(rc.checkRedundancy(ndm)) {
-					ndmData.add(ndm);
-					//					System.out.println("2");
-					map.get(ndm.getName()).add(ndm);
-					//					for(NDMData data:map.get(ndm.getName())) {
-					//						System.out.println(data.getName());
-					//						System.out.println(data.getDate());
-					//						System.out.println(data.getMessage());
-					//					}
+				//RedundancyChecker rc = new RedundancyChecker();
+				//rc.setNdmData(ndmData);
+				//if(rc.checkRedundancy(ndm)) {
+				ndmData.add(ndm);
+				//					System.out.println("2");
+				map.get(ndm.getName()).add(ndm);
+				//					for(NDMData data:map.get(ndm.getName())) {
+				//						System.out.println(data.getName());
+				//						System.out.println(data.getDate());
+				//						System.out.println(data.getMessage());
+				//					}
 
-				}
-				//ndmData.add(ndm);
-				//map.put(name, ndmData);
+			}//
+			//ndmData.add(ndm);
+			//map.put(name, ndmData);
 
-				//할거 1. match1,3번 시간 am, pm, 오전, 오후 통일해주기
-				//할거 2. 여기서 만든거 해쉬맵 넣
-				//할거 3. FileWriter 구현하
-
-			} 
+			//할거 1. match1,3번 시간 am, pm, 오전, 오후 통일해주기
+			//할거 2. 여기서 만든거 해쉬맵 넣
+			//할거 3. FileWriter 구현하
 			br.close();	
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -175,8 +175,10 @@ public class ParserForWindows implements MessageParser, Runnable{
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
-		}
+		} 
+
 	} 
+
 
 	//ndm 각각 어레이리스트에 저장하
 
@@ -194,12 +196,5 @@ public class ParserForWindows implements MessageParser, Runnable{
 		}
 		return month;
 	}
-
-	@Override
-	public void run() {
-		// TODO Auto-generated method stub
-		
-	}
-
 
 }

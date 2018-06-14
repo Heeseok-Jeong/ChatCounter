@@ -28,7 +28,8 @@ public class Message implements Runnable{
 	public Message() {};
 
 	static private HashMap<String, ArrayList<NDMData>> allMessages = new HashMap<String, ArrayList<NDMData>>();
-
+	private HashMap<String, ArrayList<NDMData>> newMessages = new HashMap<String, ArrayList<NDMData>>();
+	
 	/**
 	 * getter of allMessages
 	 */
@@ -75,6 +76,34 @@ public class Message implements Runnable{
 				}
 			}
 		}
+		RedundancyChecker rc = new RedundancyChecker();
+		newMessages = rc.checkRedundancy(allMessages);
+		
+		
+	}
+
+	//문제점 - 런 할 때 파일 하나만 읽어야하는데 어레이리스트로 다 읽어서 문제다.
+	@Override
+	public void run() {
+		ParserForMac macParser = new ParserForMac();
+		ParserForWindows winParser = new ParserForWindows();
+		//		getFileNames();
+
+		if(fileName.getName().contains(".csv") || fileName.getName().contains(".txt")) {
+			if(fileName.getName().contains(".txt")){
+				winParser.parse(fileName); 
+				allMessages.putAll(winParser.getMap());
+			}
+
+			//macParser.setMap(allMessages);
+
+			if(fileName.getName().contains(".csv")) {
+				macParser.parse(fileName);
+				allMessages.putAll(macParser.getMap());
+			}
+		}
+	}
+}
 		
 		
 		//작업 
@@ -102,30 +131,7 @@ public class Message implements Runnable{
 		//		allMessages = Stream.of(csvMessages, txtMessages).flatMap(m -> m.entrySet().stream())
 		//			       .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
 
-	}
-
 	
-	//문제점 - 런 할 때 파일 하나만 읽어야하는데 어레이리스트로 다 읽어서 문제다.
-	@Override
-	public void run() {
-		ParserForMac macParser = new ParserForMac();
-		ParserForWindows winParser = new ParserForWindows();
-//		getFileNames();
-
-//		if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
-			if(fileName.getName().contains(".txt")){
-				winParser.parse(fileName); 
-				allMessages.putAll(winParser.getMap());
-			}
-
-			macParser.setMap(allMessages);
-
-			if(fileName.getName().contains(".csv")) {
-				macParser.parse(fileName);
-				allMessages.putAll(macParser.getMap());
-			}
-			this.setAllMessages(allMessages);
-//		}
 
 //		for(File fileName:fileNames) {
 //			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
@@ -146,7 +152,5 @@ public class Message implements Runnable{
 //				allMessages.putAll(macParser.getMap());
 //			}
 //		}
-	}
 
-}
 

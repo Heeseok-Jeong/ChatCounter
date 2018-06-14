@@ -17,7 +17,7 @@ import org.apache.commons.csv.CSVRecord;
  * @author heeseok
  *
  */
-public class ParserForMac implements MessageParser, Runnable{
+public class ParserForMac implements MessageParser{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	//String user = new String();
@@ -30,38 +30,40 @@ public class ParserForMac implements MessageParser, Runnable{
 	public void parse(File fileName) {
 		Reader in = null;
 
+
 		try {
 			in = new FileReader(fileName);
 
+
 			Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
 
-			RedundancyChecker rc = new RedundancyChecker();
+			//RedundancyChecker rc = new RedundancyChecker();
 
 			for (CSVRecord record : records) {
-				//String date = record.get(0).substring(11, 16);
 				String user = record.get(1);
-				//String message = record.get(2);
 				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(11,16), record.get(2));
 
 				if(!map.containsKey(ndm.getName())) {
 					map.put(user, new ArrayList<NDMData>());
 				}
-				rc.setNdmData(map.get(ndm.getName()));
-				user = ndm.getName();
-				if(rc.checkRedundancy(ndm)) {
-					ndmData.add(ndm);
-					map.get(ndm.getName()).add(ndm);
-				}
-				//				ndmData.add(ndm);
-				//				map.put(user, ndmData);
+				//rc.setNdmData(map.get(ndm.getName()));
+				//user = ndm.getName();
+				ndmData.add(ndm);
+				map.get(ndm.getName()).add(ndm);
 			}
+			//				if(rc.checkRedundancy(ndm)) {
+			//					ndmData.add(ndm);
+			//					map.get(ndm.getName()).add(ndm);
+			//				}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 	}
+			
 
 	/**
 	 * getter of ndmData
@@ -91,9 +93,4 @@ public class ParserForMac implements MessageParser, Runnable{
 		this.ndmData = ndmData;
 	}
 
-	@Override
-	public void run() {
-		
-		
-	}
 }
