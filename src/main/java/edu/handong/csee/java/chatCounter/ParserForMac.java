@@ -17,7 +17,7 @@ import org.apache.commons.csv.CSVRecord;
  * @author heeseok
  *
  */
-public class ParserForMac implements MessageParser{
+public class ParserForMac implements Parsable{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	//String user = new String();

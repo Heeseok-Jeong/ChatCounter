@@ -8,14 +8,14 @@ import java.util.HashMap;
  * @author heeseok
  *
  */
-public class RedundancyChecker {
+public class RedundancyRemover {
 //	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	boolean result;
 
 	/**
 	 * this method checks ndm includes ndmData and returns true or false
 	 */
-	public HashMap<String, ArrayList<NDMData>> checkRedundancy(HashMap<String, ArrayList<NDMData>> allMessages) {
+	public HashMap<String, ArrayList<NDMData>> removeRedundancy(HashMap<String, ArrayList<NDMData>> allMessages) {
 		HashMap<String, ArrayList<NDMData>> newMessages;
 		String name = allMessages.getName();
 		String date = allMessages.getDate();

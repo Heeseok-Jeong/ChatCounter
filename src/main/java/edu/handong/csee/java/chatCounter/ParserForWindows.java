@@ -17,7 +17,7 @@ import java.util.regex.Pattern;
  * @author heeseok
  *
  */
-public class ParserForWindows implements MessageParser{
+public class ParserForWindows implements Parsable{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	String date;

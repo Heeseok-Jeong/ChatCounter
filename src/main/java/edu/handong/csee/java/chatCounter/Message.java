@@ -76,13 +76,12 @@ public class Message implements Runnable{
 				}
 			}
 		}
-		RedundancyChecker rc = new RedundancyChecker();
+		RedundancyRemover rc = new RedundancyRemover();
 		newMessages = rc.checkRedundancy(allMessages);
 		
 		
 	}
 
-	//문제점 - 런 할 때 파일 하나만 읽어야하는데 어레이리스트로 다 읽어서 문제다.
 	@Override
 	public void run() {
 		ParserForMac macParser = new ParserForMac();
@@ -94,9 +93,7 @@ public class Message implements Runnable{
 				winParser.parse(fileName); 
 				allMessages.putAll(winParser.getMap());
 			}
-
 			//macParser.setMap(allMessages);
-
 			if(fileName.getName().contains(".csv")) {
 				macParser.parse(fileName);
 				allMessages.putAll(macParser.getMap());
