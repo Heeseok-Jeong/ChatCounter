@@ -76,8 +76,8 @@ public class Message implements Runnable{
 				}
 			}
 		}
-		RedundancyRemover rc = new RedundancyRemover();
-		newMessages = rc.checkRedundancy(allMessages);
+		RedundancyRemover rr = new RedundancyRemover();
+		newMessages = rr.removeRedundancy(allMessages);
 		
 		
 	}
