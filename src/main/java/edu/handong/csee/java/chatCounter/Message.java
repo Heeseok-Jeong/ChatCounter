@@ -30,6 +30,10 @@ public class Message implements Runnable{
 	static private HashMap<String, ArrayList<NDMData>> allMessages = new HashMap<String, ArrayList<NDMData>>();
 	private HashMap<String, ArrayList<NDMData>> newMessages = new HashMap<String, ArrayList<NDMData>>();
 	
+	public HashMap<String, ArrayList<NDMData>> getNewMessages() {
+		return newMessages;
+	}
+
 	/**
 	 * getter of allMessages
 	 */
@@ -81,7 +85,7 @@ public class Message implements Runnable{
 		
 		
 	}
-
+//문제점 : 쓰레드 돌리고 나온 allMessages가 왜 메인쓰레드에선 텅비었을
 	@Override
 	public void run() {
 		ParserForMac macParser = new ParserForMac();

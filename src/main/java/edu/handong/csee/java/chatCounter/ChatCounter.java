@@ -69,7 +69,7 @@ public class ChatCounter {
 		}
 
 
-		messages = msg.getAllMessages();
+		messages = msg.getNewMessages();
 		if(messages.size() == 0)
 			try {
 				throw new MessageZeroException("Please Input correct Path!");
