@@ -11,7 +11,7 @@ public class NDMData {
 	private String message;
 
 	/**
-	 * this constructor sets ndm
+	 * constructor to set ndm
 	 */
 	public NDMData(String name, String date, String message) {
 		this.name = name;

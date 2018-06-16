@@ -7,25 +7,23 @@ import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
 import java.util.HashMap;
-//import java.lang.*;
 
 import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
 /**
- * this class reads csv type files and makes its contents to HashMap
+ * this class can reads csv type files and saves its contents to HashMap
  * @author heeseok
  *
  */
-public class ParserForMac implements MessageParser{
+public class ParserForMac implements Parsable{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
-	//String user = new String();
 	boolean result = true;
 
 	@Override
 	/**
-	 * this method reads csv type files and makes its contents to HashMap, Override
+	 * this method reads csv type files and saves its contents to HashMap, Override
 	 */
 	public void parse(File fileName) {
 		Reader in = null;
@@ -38,9 +36,7 @@ public class ParserForMac implements MessageParser{
 			RedundancyChecker rc = new RedundancyChecker();
 
 			for (CSVRecord record : records) {
-				//String date = record.get(0).substring(11, 16);
 				String user = record.get(1);
-				//String message = record.get(2);
 				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(11,16), record.get(2));
 
 				if(!map.containsKey(ndm.getName())) {
@@ -52,8 +48,6 @@ public class ParserForMac implements MessageParser{
 					ndmData.add(ndm);
 					map.get(ndm.getName()).add(ndm);
 				}
-				//				ndmData.add(ndm);
-				//				map.put(user, ndmData);
 			}
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
@@ -94,7 +88,4 @@ public class ParserForMac implements MessageParser{
 	public void setNdmData(ArrayList<NDMData> ndmData) {
 		this.ndmData = ndmData;
 	}
-
-
-
 }

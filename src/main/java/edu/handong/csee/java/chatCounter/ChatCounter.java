@@ -12,10 +12,11 @@ import java.util.*;
 
 /**
  * This class is for main method to run. 
+ * This is this program's algorithm.
  * First, reads an input path and divides fileNames. 
- * Second, there are two types of file 'txt' and 'csv', so it gonna treat each properly.
+ * Second, there are two types of file 'txt' and 'csv', so it will treat each properly.
  * Third, saves all data into hash map with redundancy check and merge both of them 
- * Fourth, reads that hash map and counts all arraylists amount per person
+ * Fourth, reads that hash map and counts all message amounts per person
  * Finally, sort and write csv file with fourth step's output
  * @author heeseok
  *
@@ -33,10 +34,6 @@ public class ChatCounter {
 	 * this method is main method to run.
 	 */
 	public static void main(String[] args) {
-//		openPath = args[1];
-//		savePath = args[3];
-//		threadAmounts = Integer.parseInt(args[5]);
-		//chCounter.run("/Users/heeseok/Documents/한동대/수업/2-1학기/자바 프로그래밍/카카오톡 채팅파일");
 		chCounter.run(args);
 	}
 
@@ -60,7 +57,6 @@ public class ChatCounter {
 		}
 
 		try {
-//			msg.setMessages(fl.readDirectory(openPath));
 			msg.setMessages(fl.readDirectory(input));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -77,18 +73,11 @@ public class ChatCounter {
 				e.printStackTrace();
 			}
 
-		//test
-		//		for(NDMData data : messages.get("남재창")) {
-		//			System.out.println(data.getDate());
-		//			System.out.println(data.getMessage());
-		//		}
-
 		//실행파트 
 		PMCounter pmc = new PMCounter();
 
 		finalOutput = pmc.computePM(messages);
 
-//		fw.writeCSV(savePath, finalOutput);
 		fw.writeCSV(output, finalOutput);
 
 	}
@@ -116,7 +105,7 @@ public class ChatCounter {
 	// Definition Stage
 	private Options createOptions() {
 		Options options = new Options();
-		
+
 		// add options by using OptionBuilder
 		options.addOption(Option.builder("i").longOpt("input")
 				.desc("Set a directory path that contains input files")

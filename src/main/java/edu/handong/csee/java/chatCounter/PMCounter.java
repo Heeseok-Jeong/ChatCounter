@@ -20,12 +20,8 @@ public class PMCounter {
 	public HashMap<String, Integer> computePM(HashMap<String, ArrayList<NDMData>> messages) {
 		for(String keys : messages.keySet()) {
 			size = messages.get(keys).size();
-			//			if(count.containsKey(keys) != messages.containsKey(keys)) {
 			count.put(keys, size);
-			//			}
-
 		}
-
 		return count;
 	}
 

@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 /**
- * this class reads and parses all files with two different type logics and makes final HashMap
+ * this class can reads and parses csv files and txt files with two different type logics on checking redundancy
+ * and saves into a HashMap allMessages
  * @author heeseok
  *
  */
@@ -53,25 +54,8 @@ public class Message {
 				allMessages.putAll(macParser.getMap());
 			}
 		}
-		//		allMessages.putAll(csvMessages);
-		//		allMessages.putAll(txtMessages);
-		//		allMessages = Stream.of(csvMessages, txtMessages).flatMap(m -> m.entrySet().stream())
-		//			       .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
 
 	}
 
 }
-//
-//public HashMap<String, ArrayList<NDMData>> deepMerge(HashMap<String, ArrayList<NDMData>> original, HashMap<String, ArrayList<NDMData>> newMap) {
-//    for (Object key : newMap.keySet()) {
-//        if (newMap.get(key) instanceofMap && original.get(key) instanceof Map) {
-//            Map originalChild = (Map) original.get(key);
-//            Map newChild = (Map) newMap.get(key);
-//            original.put(key, deepMerge(originalChild, newChild));
-//        } else {
-//            original.put(key, newMap.get(key));
-//        }
-//    }
-//    return original;
-//}
 

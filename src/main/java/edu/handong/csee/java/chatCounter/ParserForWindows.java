@@ -13,11 +13,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * this class reads txt type files and makes its contents to HashMap
+ * this class can reads txt type files and makes its contents to HashMap
  * @author heeseok
  *
  */
-public class ParserForWindows implements MessageParser{
+public class ParserForWindows implements Parsable{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	String date;
@@ -56,7 +56,7 @@ public class ParserForWindows implements MessageParser{
 
 	@Override
 	/**
-	 * this method overrides its interface and reads txt type files and makes its contents to HashMap, Override
+	 * this method overrides its interface and reads txt type files and saves its contents to HashMap, Override
 	 */
 	public void parse(File fileName) { 
 		String temp;
@@ -117,27 +117,12 @@ public class ParserForWindows implements MessageParser{
 					}
 					if(match3.group(4).equals("AM") && hour == 12) hour = 0;
 				}
-
-
-
-				//				else if(match3.find()) {
-				//					name = match3.group(1);
-				//					message = match3.group(5);
-				//					hour = Integer.parseInt(match3.group(2));
-				//					min = Integer.parseInt(match3.group(3));	
-				//					
-				//					if(match1.group(4).equals("PM")) {
-				//						if(hour == 12) ;						
-				//						else hour += 12;
-				//					}
-				//					if(match1.group(4).equals("AM") && hour == 12) hour = 0;
-				//				}
 				else continue;
 
 
 				date = String.format("%02d", hour) + ":" + String.format("%02d", min);
 				NDMData ndm = new NDMData(name, date, message);
-				//				if(ndmData != null) ndmData.add(ndm);
+				
 				if(!map.containsKey(ndm.getName())) {
 					map.put(name, new ArrayList<NDMData>());
 				}
@@ -145,21 +130,9 @@ public class ParserForWindows implements MessageParser{
 				rc.setNdmData(ndmData);
 				if(rc.checkRedundancy(ndm)) {
 					ndmData.add(ndm);
-					//					System.out.println("2");
 					map.get(ndm.getName()).add(ndm);
-					//					for(NDMData data:map.get(ndm.getName())) {
-					//						System.out.println(data.getName());
-					//						System.out.println(data.getDate());
-					//						System.out.println(data.getMessage());
-					//					}
-
+					
 				}
-				//ndmData.add(ndm);
-				//map.put(name, ndmData);
-
-				//할거 1. match1,3번 시간 am, pm, 오전, 오후 통일해주기
-				//할거 2. 여기서 만든거 해쉬맵 넣
-				//할거 3. FileWriter 구현하
 
 			} 
 			br.close();	
@@ -178,7 +151,6 @@ public class ParserForWindows implements MessageParser{
 		}
 	} 
 
-	//ndm 각각 어레이리스트에 저장하
 
 
 	private String convert(String group) {

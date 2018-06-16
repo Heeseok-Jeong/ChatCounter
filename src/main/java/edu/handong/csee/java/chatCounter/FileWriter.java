@@ -9,12 +9,11 @@ import java.util.Map.Entry;
 import java.util.*;
 
 /**
- * this class writes a csv file with a HashMap to savePath
+ * this class can writes a csv file with a HashMap to savePath
  * @author heeseok
  *
  */
 public class FileWriter {
-	//HashMap<String, Integer> output = new HashMap<String, Integer>();
 	ArrayList<String> kakaoID = new ArrayList<String>();
 	String string = null;
 
@@ -37,7 +36,6 @@ public class FileWriter {
 			/*
 			 * 할거 1. window용 파서 안돌아감 2. 중복체크되는지확인 3.정
 			 */
-			//Iterator it = FileWriter.sortByValue(finalOutput).iterator();
 			HashMap<String, Integer> sortedMap = sortedByComparator(finalOutput, false);
 			for(String keys : sortedMap.keySet()) {
 				string = keys + ", " + sortedMap.get(keys) + "\n";
@@ -90,51 +88,4 @@ public class FileWriter {
 		return sortedMap;
 	}
 } 
-
-
-
-
-//	    public CSVWrite() {
-//	 
-//	    public void writeCsv(List<String[]> data) {
-//	        try {
-//	            CSVWriter cw = new CSVWriter(new FileWriter(savePath), ',', '"');
-//	            Iterator<String[]> it = data.iterator();
-//	            try {
-//	                while (it.hasNext()) {
-//	                    String[] s = (String[]) it.next();
-//	                    cw.writeNext(s);
-//	                }
-//	            } finally {
-//	                cw.close();
-//	            }
-//	        } catch (IOException e) {
-//	            e.printStackTrace();
-//	        }
-//	    }
-//	}
-
-
-
-// Note: this comparator imposes orderings that are inconsistent with equals.    
-//	public static HashMap<String, Integer> sortByValue(final HashMap<String, Integer> finalOutput){
-//        HashMap<String, Integer> returnHash = new HashMap<>();
-//        list.addAll(map.keySet());
-//         
-//        Collections.sort(list,new Comparator(){
-//             
-//            public int compare(Object o1,Object o2){
-//                Object v1 = map.get(o1);
-//                Object v2 = map.get(o2);
-//                 
-//                return ((Comparable) v1).compareTo(v2);
-//            }
-//             
-//        });
-//        Collections.reverse(list); // 주석시 오름차순
-//        return list;
-//    }
-//}
-//</string></string,integer></string,integer>
-
 

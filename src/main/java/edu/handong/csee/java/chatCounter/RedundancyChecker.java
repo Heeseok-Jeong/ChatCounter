@@ -3,7 +3,7 @@ package edu.handong.csee.java.chatCounter;
 import java.util.ArrayList;
 
 /**
- * this class checks whether ndm includes or not and return boolean result
+ * this class checks whether ndm includes in ndmData or not and return boolean result
  * @author heeseok
  *
  */
@@ -12,7 +12,7 @@ public class RedundancyChecker {
 	boolean result;
 
 	/**
-	 * this method checks ndm includes ndmData and returns true or false
+	 * this method checks ndm includes in ndmData and returns true or false
 	 */
 	public boolean checkRedundancy(NDMData ndm) {
 		String name = ndm.getName();
@@ -22,7 +22,6 @@ public class RedundancyChecker {
 		String cDate;
 		String cMessage;
 
-		//result = true;
 		for(NDMData keys : ndmData) {
 			cDate = keys.getDate();
 			cMessage = keys.getMessage();
@@ -39,12 +38,7 @@ public class RedundancyChecker {
 			}
 			if(cDate.equals(date) && longMessage.trim().startsWith(shortMessage.trim()) && cName.equals(name)) return false;
 
-			//if(cDate.equals(date) && cMessage.equals("cmd창에서 gradle -v 입력하니까 에러 메세지가 뜹니당..")) return false;
-			//if(cDate.equals(date) && cMessage.contains(message)) return false;
-			//if(date.equals(cDate) && message.contains(cMessage)) return false;
 		}
-		//if(ndmData.contains(ndm)) result = false;
-
 		return true;
 	}
 
