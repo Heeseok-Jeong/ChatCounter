@@ -17,10 +17,11 @@ import java.util.regex.Pattern;
  * @author heeseok
  *
  */
-public class ParserForWindows implements Parsable{
+public class ParserForWindows implements Runnable{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	String date;
+	File fileName;
 
 	String user = new String();
 	String name, message;
@@ -53,12 +54,16 @@ public class ParserForWindows implements Parsable{
 	public void setHour(int hour) {
 		this.hour = hour;
 	}
+	
+	public ParserForWindows(File fileName) {
+		this.fileName = fileName;
+	}
 
 	@Override
 	/**
 	 * this method overrides its interface and reads txt type files and makes its contents to HashMap, Override
 	 */
-	public void parse(File fileName) { 
+	public void run() {
 		String temp;
 		BufferedReader br;
 
@@ -196,5 +201,7 @@ public class ParserForWindows implements Parsable{
 		}
 		return month;
 	}
+
+	
 
 }

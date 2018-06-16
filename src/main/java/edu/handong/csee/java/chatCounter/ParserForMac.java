@@ -17,17 +17,25 @@ import org.apache.commons.csv.CSVRecord;
  * @author heeseok
  *
  */
-public class ParserForMac implements Parsable{
+public class ParserForMac implements Runnable{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
+	File fileName;
 	//String user = new String();
 	boolean result = true;
+	
+	/*
+	 * constructor to set fileName
+	 */
+	public ParserForMac(File fileName) {
+		this.fileName = fileName;
+	}
 	
 	@Override
 	/**
 	 * this method reads csv type files and makes its contents to HashMap, Override
 	 */
-	public void parse(File fileName) {
+	public void run() {
 		Reader in = null;
 
 
@@ -92,5 +100,6 @@ public class ParserForMac implements Parsable{
 	public void setNdmData(ArrayList<NDMData> ndmData) {
 		this.ndmData = ndmData;
 	}
+
 
 }

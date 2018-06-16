@@ -32,27 +32,30 @@ public class RedundancyRemover {
 					newMessages.put(compareName, new ArrayList<NDMData>());
 				}
 				for(String key2 : newMessages.keySet()) {
-					for(NDMData data2 : newMessages.get(key2)) {
-						String newDate = data2.getDate();
-						String newMessage = data2.getMessage();
-						String newName = data2.getName();
-						
-						if(compareMessage.length() > newMessage.length()) {
-							longMessage = compareMessage;
-							shortMessage = newMessage;
-						}
-						else {
-							longMessage = newMessage;
-							shortMessage = compareMessage;
-						}
-						if(compareDate.equals(newDate) 
-								&& longMessage.trim().startsWith(shortMessage.trim()) 
+					if(newMessages.get(key2).isEmpty())
+						newMessages.get(key2).add(data);
+					else
+						for(NDMData data2 : newMessages.get(key2)) {
+							String newDate = data2.getDate();
+							String newMessage = data2.getMessage();
+							String newName = data2.getName();
+
+							if(compareMessage.length() > newMessage.length()) {
+								longMessage = compareMessage;
+								shortMessage = newMessage;
+							}
+							else {
+								longMessage = newMessage;
+								shortMessage = compareMessage;
+							}
+							if(compareDate.equals(newDate) 
+									&& longMessage.trim().startsWith(shortMessage.trim()) 
 									&& compareName.equals(newName)) continue;
-						else {
-							newMessages.get(compareName).add(data);
-//							newMessages.put(key, data);
+							else {
+								newMessages.get(compareName).add(data);
+								//							newMessages.put(key, data);
+							}
 						}
-					}
 				}
 				
 			}
