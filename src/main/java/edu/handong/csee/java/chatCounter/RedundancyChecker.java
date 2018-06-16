@@ -3,7 +3,7 @@ package edu.handong.csee.java.chatCounter;
 import java.util.ArrayList;
 
 /**
- * this class checks whether ndm includes in ndmData or not and return boolean result
+ * this class can checks whether ndm includes in ndmData or not and return boolean result
  * @author heeseok
  *
  */
@@ -18,25 +18,25 @@ public class RedundancyChecker {
 		String name = ndm.getName();
 		String date = ndm.getDate();
 		String message = ndm.getMessage();
-		String cName;
-		String cDate;
-		String cMessage;
+		String compareName;
+		String compareDate;
+		String compareMessage;
 
 		for(NDMData keys : ndmData) {
-			cDate = keys.getDate();
-			cMessage = keys.getMessage();
-			cName = keys.getName();
+			compareDate = keys.getDate();
+			compareMessage = keys.getMessage();
+			compareName = keys.getName();
 			String longMessage;
 			String shortMessage;
-			if(cMessage.length() > message.length()) {
-				longMessage = cMessage;
+			if(compareMessage.length() > message.length()) {
+				longMessage = compareMessage;
 				shortMessage = message;
 			}
 			else {
 				longMessage = message;
-				shortMessage = cMessage;
+				shortMessage = compareMessage;
 			}
-			if(cDate.equals(date) && longMessage.trim().startsWith(shortMessage.trim()) && cName.equals(name)) return false;
+			if(compareDate.equals(date) && longMessage.trim().startsWith(shortMessage.trim()) && compareName.equals(name)) return false;
 
 		}
 		return true;
