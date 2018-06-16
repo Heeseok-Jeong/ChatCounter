@@ -9,7 +9,7 @@ import java.util.Map.Entry;
 import java.util.*;
 
 /**
- * this class writes a csv file with a HashMap to savePath
+ * this class can writes a csv file with a HashMap to savePath
  * @author heeseok
  *
  */

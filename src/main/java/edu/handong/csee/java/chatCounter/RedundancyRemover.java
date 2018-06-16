@@ -14,6 +14,9 @@ public class RedundancyRemover {
 	ArrayList<ParserForMac> pfmRunners;
 	ArrayList<ParserForWindows> pfwRunners;
 
+	/**
+	 * constructor to set instance variables, pfmRunners and pfwRunners
+	 */
 	public RedundancyRemover(ArrayList<ParserForMac> pfmRunners, ArrayList<ParserForWindows> pfwRunners) {
 		this.pfmRunners = pfmRunners;
 		this.pfwRunners = pfwRunners;
@@ -26,25 +29,25 @@ public class RedundancyRemover {
 		String name = ndm.getName();
 		String date = ndm.getDate();
 		String message = ndm.getMessage();
-		String cName;
-		String cDate;
-		String cMessage;
+		String compareName;
+		String compareDate;
+		String compareMessage;
 
 		for(NDMData keys : ndmData) {
-			cDate = keys.getDate();
-			cMessage = keys.getMessage();
-			cName = keys.getName();
+			compareDate = keys.getDate();
+			compareMessage = keys.getMessage();
+			compareName = keys.getName();
 			String longMessage;
 			String shortMessage;
-			if(cMessage.length() > message.length()) {
-				longMessage = cMessage;
+			if(compareMessage.length() > message.length()) {
+				longMessage = compareMessage;
 				shortMessage = message;
 			}
 			else {
 				longMessage = message;
-				shortMessage = cMessage;
+				shortMessage = compareMessage;
 			}
-			if(cDate.equals(date) && longMessage.trim().startsWith(shortMessage.trim()) && cName.equals(name)) return false;
+			if(compareDate.equals(date) && longMessage.trim().startsWith(shortMessage.trim()) && compareName.equals(name)) return false;
 
 		}
 
