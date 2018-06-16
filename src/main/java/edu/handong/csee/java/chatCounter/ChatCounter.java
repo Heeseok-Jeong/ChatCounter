@@ -12,10 +12,11 @@ import java.util.*;
 
 /**
  * This class is for main method to run. 
+ * This is this program's algorithm
  * First, reads an input path and divides fileNames. 
- * Second, there are two types of file 'txt' and 'csv', so it gonna treat each properly.
- * Third, saves all data into hash map with redundancy check and merge both of them 
- * Fourth, reads that hash map and counts all arraylists amount per person
+ * Second, there are two types of file 'txt' and 'csv', so it will treat each properly.
+ * Third, saves all data into hash map each instances and merges them into one HashMap with redundancy checking.
+ * Fourth, reads that hash map and counts all message amounts per person
  * Finally, sort and write csv file with fourth step's output
  * @author heeseok
  *
@@ -106,7 +107,7 @@ public class ChatCounter {
 	// Definition Stage
 	private Options createOptions() {
 		Options options = new Options();
-		
+
 
 		// add options by using OptionBuilder
 		options.addOption(Option.builder("c").longOpt("thread")
@@ -115,7 +116,7 @@ public class ChatCounter {
 				.argName("Thread Numbers")
 				.required()
 				.build());
-		
+
 		// add options by using OptionBuilder
 		options.addOption(Option.builder("i").longOpt("input")
 				.desc("Set a directory path that contains input files")

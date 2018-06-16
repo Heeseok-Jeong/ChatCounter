@@ -8,25 +8,18 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * this class can reads and parses all files with two different type logics and makes final HashMap
+ * this class can reads and parses csv files and txt files with two different type logics 
+ * and merges into one HashMap with redundancy checking
  * @author heeseok
  *
  */
 public class Message{
-//	private static ArrayList<File> fileNames;
-//	private static void setFileNames(ArrayList<File> fileNames) {
-//		Message.fileNames = fileNames;
-//	}
-//
-//	private static ArrayList<File> getFileNames() {
-//		return fileNames;
-//	}
-	
-	public Message() {};
-
 	private HashMap<String, ArrayList<NDMData>> fileMessages = new HashMap<String, ArrayList<NDMData>>();
 	private HashMap<String, ArrayList<NDMData>> newMessages = new HashMap<String, ArrayList<NDMData>>();
-	
+
+	/**
+	 * getter of newMessages
+	 */
 	public HashMap<String, ArrayList<NDMData>> getNewMessages() {
 		return newMessages;
 	}
@@ -46,27 +39,14 @@ public class Message{
 	}
 
 	/**
-	 * it reads txt files and csv files and properly puts data into allMessages
-	 * @param threads 
+	 * it reads txt files and csv files and properly puts data into each instances
 	 */
-	public void setMessages(ArrayList<File> fileNames, int numThreads) throws IOException {
-//		setFileNames(fileNames);
-		//쓰레드 
-		
-//		Thread[] threads = new Thread[numThreads];
-		
-//		for(File fileName : fileNames) {
-//			for(int i=0; i<numThreads; i++) {
-//				threads[i] = new Thread(new Message(fileName));
-//				threads[i].start();
-//			}
-//		}
-		
+	public void setMessages(ArrayList<File> fileNames, int numThreads) throws IOException {	
 		ArrayList<ParserForMac> pfmRunners = new ArrayList<ParserForMac>();
 		ArrayList<ParserForWindows> pfwRunners = new ArrayList<ParserForWindows>();
 
 		ExecutorService executor = Executors.newFixedThreadPool(numThreads);
-		
+
 		for(File fileName : fileNames) {
 			if(fileName.getName().contains(".csv") || fileName.getName().contains(".txt")) {
 				if(fileName.getName().contains(".csv")) {
@@ -81,108 +61,13 @@ public class Message{
 				}
 			}
 		}
-		
-		executor.shutdown(); // no new tasks will be accepted.
-		
-		while (!executor.isTerminated()) {
-        }
 
-		
-//		for(ParserForMac pfmRunner:pfmRunners) {
-//			fileMessages.putAll(pfmRunner.getMap());
-//		}
-//		for(ParserForWindows pfwRunner:pfwRunners) {
-//			fileMessages.putAll(pfwRunner.getMap());
-//		}
-		
-		
-//		for(j = 0; j < fileNames.size();) {
-//			for(int i=0; i<numThreads; i++) {
-//				fileName = fileNames.get(j++);
-//				if(j == fileNames.size()) break;
-//				threads[i] = new Thread(new Message(fileName));
-//				threads[i].start();
-//			}
-//			for(Thread thread:threads) {
-//				try {
-//					thread.join();
-//				} catch (InterruptedException e) {
-//					e.printStackTrace();
-//				}
-//			}
-//		}
+		executor.shutdown(); // no new tasks will be accepted.
+
+		while (!executor.isTerminated()) {
+		}
+
 		RedundancyRemover rr = new RedundancyRemover(pfmRunners, pfwRunners);
 		newMessages.putAll(rr.removeRedundancy());
 	}		
 }
-//문제점 : 쓰레드 돌리고 나온 allMessages가 왜 메인쓰레드에선 텅비었을
-//	@Override
-//	public void run() {
-//		ParserForMac macParser = new ParserForMac();
-//		ParserForWindows winParser = new ParserForWindows();
-//		//		getFileNames();
-//
-//		if(fileName.getName().contains(".csv") || fileName.getName().contains(".txt")) {
-//			if(fileName.getName().contains(".txt")){
-//				winParser.parse(fileName); 
-//				allMessages.putAll(winParser.getMap());
-//			}
-//			//macParser.setMap(allMessages);
-//			if(fileName.getName().contains(".csv")) {
-//				macParser.parse(fileName);
-//				allMessages.putAll(macParser.getMap());
-//			}
-//		}
-//		
-//	}
-//}
-//		
-		
-		//작업 
-//		for(File fileName:fileNames) {
-//			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
-//				continue;
-//			}
-//			if(fileName.getName().contains(".txt")){
-//				winParser.parse(fileName); 
-//				allMessages.putAll(winParser.getMap());
-//			}
-//		}
-//		macParser.setMap(allMessages);
-//		for(File fileName : fileNames) {
-//			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
-//				continue;
-//			}
-//			if(fileName.getName().contains(".csv")) {
-//				macParser.parse(fileName);
-//				allMessages.putAll(macParser.getMap());
-//			}
-//		}
-		//		allMessages.putAll(csvMessages);
-		//		allMessages.putAll(txtMessages);
-		//		allMessages = Stream.of(csvMessages, txtMessages).flatMap(m -> m.entrySet().stream())
-		//			       .collect(Collectors.toMap(Entry::getKey, Entry::getValue));
-
-	
-
-//		for(File fileName:fileNames) {
-//			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
-//				continue;
-//			}
-//			if(fileName.getName().contains(".txt")){
-//				winParser.parse(fileName); 
-//				allMessages.putAll(winParser.getMap());
-//			}
-//		}
-//		macParser.setMap(allMessages);
-//		for(File fileName : fileNames) {
-//			if(!(fileName.getName().contains(".csv") || fileName.getName().contains(".txt"))) {
-//				continue;
-//			}
-//			if(fileName.getName().contains(".csv")) {
-//				macParser.parse(fileName);
-//				allMessages.putAll(macParser.getMap());
-//			}
-//		}
-
-

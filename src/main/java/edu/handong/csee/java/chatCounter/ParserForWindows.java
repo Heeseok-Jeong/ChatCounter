@@ -13,7 +13,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * this class reads txt type files and makes its contents to HashMap
+ * this class can reads txt type files and saves its contents to HashMap
  * @author heeseok
  *
  */
@@ -54,14 +54,17 @@ public class ParserForWindows implements Runnable{
 	public void setHour(int hour) {
 		this.hour = hour;
 	}
-	
+
+	/**
+	 * constructor to set fileName
+	 */
 	public ParserForWindows(File fileName) {
 		this.fileName = fileName;
 	}
 
 	@Override
 	/**
-	 * this method overrides its interface and reads txt type files and makes its contents to HashMap, Override
+	 * this method overrides its interface and reads txt type files and saves its contents to HashMap, implements for interface
 	 */
 	public void run() {
 		String temp;
@@ -124,21 +127,6 @@ public class ParserForWindows implements Runnable{
 					}
 					if(match3.group(4).equals("AM") && hour == 12) hour = 0;
 				}
-
-
-
-				//				else if(match3.find()) {
-				//					name = match3.group(1);
-				//					message = match3.group(5);
-				//					hour = Integer.parseInt(match3.group(2));
-				//					min = Integer.parseInt(match3.group(3));	
-				//					
-				//					if(match1.group(4).equals("PM")) {
-				//						if(hour == 12) ;						
-				//						else hour += 12;
-				//					}
-				//					if(match1.group(4).equals("AM") && hour == 12) hour = 0;
-				//				}
 				else continue;
 
 
@@ -148,25 +136,11 @@ public class ParserForWindows implements Runnable{
 				if(!map.containsKey(ndm.getName())) {
 					map.put(name, new ArrayList<NDMData>());
 				}
-				//RedundancyChecker rc = new RedundancyChecker();
-				//rc.setNdmData(ndmData);
-				//if(rc.checkRedundancy(ndm)) {
 				ndmData.add(ndm);
-				//					System.out.println("2");
 				map.get(ndm.getName()).add(ndm);
-				//					for(NDMData data:map.get(ndm.getName())) {
-				//						System.out.println(data.getName());
-				//						System.out.println(data.getDate());
-				//						System.out.println(data.getMessage());
-				//					}
 
-			}//
-			//ndmData.add(ndm);
-			//map.put(name, ndmData);
+			}
 
-			//할거 1. match1,3번 시간 am, pm, 오전, 오후 통일해주기
-			//할거 2. 여기서 만든거 해쉬맵 넣
-			//할거 3. FileWriter 구현하
 			br.close();	
 		} catch (UnsupportedEncodingException e) {
 			// TODO Auto-generated catch block
@@ -184,10 +158,6 @@ public class ParserForWindows implements Runnable{
 
 	} 
 
-
-	//ndm 각각 어레이리스트에 저장하
-
-
 	private String convert(String group) {
 		String month = "0";
 
@@ -201,7 +171,4 @@ public class ParserForWindows implements Runnable{
 		}
 		return month;
 	}
-
-	
-
 }

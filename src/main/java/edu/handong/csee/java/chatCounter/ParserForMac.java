@@ -13,7 +13,7 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVRecord;
 
 /**
- * this class reads csv type files and makes its contents to HashMap
+ * this class can reads csv type files and saves its contents to HashMap
  * @author heeseok
  *
  */
@@ -21,19 +21,18 @@ public class ParserForMac implements Runnable{
 	HashMap<String, ArrayList<NDMData>> map = new HashMap<String, ArrayList<NDMData>>();
 	ArrayList<NDMData> ndmData = new ArrayList<NDMData>();
 	File fileName;
-	//String user = new String();
 	boolean result = true;
-	
-	/*
+
+	/**
 	 * constructor to set fileName
 	 */
 	public ParserForMac(File fileName) {
 		this.fileName = fileName;
 	}
-	
+
 	@Override
 	/**
-	 * this method reads csv type files and makes its contents to HashMap, Override
+	 * this method reads csv type files and saves its contents to HashMap, implements for interface
 	 */
 	public void run() {
 		Reader in = null;
@@ -45,8 +44,6 @@ public class ParserForMac implements Runnable{
 
 			Iterable<CSVRecord> records = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(in);
 
-			//RedundancyChecker rc = new RedundancyChecker();
-
 			for (CSVRecord record : records) {
 				String user = record.get(1);
 				NDMData ndm = new NDMData(record.get(1), record.get(0).substring(11,16), record.get(2));
@@ -54,15 +51,10 @@ public class ParserForMac implements Runnable{
 				if(!map.containsKey(ndm.getName())) {
 					map.put(user, new ArrayList<NDMData>());
 				}
-				//rc.setNdmData(map.get(ndm.getName()));
-				//user = ndm.getName();
 				ndmData.add(ndm);
 				map.get(ndm.getName()).add(ndm);
 			}
-			//				if(rc.checkRedundancy(ndm)) {
-			//					ndmData.add(ndm);
-			//					map.get(ndm.getName()).add(ndm);
-			//				}
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -71,7 +63,7 @@ public class ParserForMac implements Runnable{
 			e.printStackTrace();
 		}
 	}
-			
+
 
 	/**
 	 * getter of ndmData
@@ -100,6 +92,4 @@ public class ParserForMac implements Runnable{
 	public void setNdmData(ArrayList<NDMData> ndmData) {
 		this.ndmData = ndmData;
 	}
-
-
 }
