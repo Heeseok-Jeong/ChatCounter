@@ -8,7 +8,7 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * this class reads and parses all files with two different type logics and makes final HashMap
+ * this class can reads and parses all files with two different type logics and makes final HashMap
  * @author heeseok
  *
  */
@@ -87,12 +87,13 @@ public class Message{
 		while (!executor.isTerminated()) {
         }
 
-		for(ParserForMac runner:pfmRunners) {
-			fileMessages.putAll(runner.getMap());
-		}
-		for(ParserForWindows runner:pfwRunners) {
-			fileMessages.putAll(runner.getMap());
-		}
+		
+//		for(ParserForMac pfmRunner:pfmRunners) {
+//			fileMessages.putAll(pfmRunner.getMap());
+//		}
+//		for(ParserForWindows pfwRunner:pfwRunners) {
+//			fileMessages.putAll(pfwRunner.getMap());
+//		}
 		
 		
 //		for(j = 0; j < fileNames.size();) {
@@ -110,8 +111,8 @@ public class Message{
 //				}
 //			}
 //		}
-		RedundancyRemover rr = new RedundancyRemover();
-		newMessages.putAll(rr.removeRedundancy(getFileMessages()));
+		RedundancyRemover rr = new RedundancyRemover(pfmRunners, pfwRunners);
+		newMessages.putAll(rr.removeRedundancy());
 	}		
 }
 //문제점 : 쓰레드 돌리고 나온 allMessages가 왜 메인쓰레드에선 텅비었을

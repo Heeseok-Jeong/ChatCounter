@@ -34,10 +34,6 @@ public class ChatCounter {
 	 * this method is main method to run.
 	 */
 	public static void main(String[] args) {
-//		openPath = args[1];
-//		savePath = args[3];
-//		threadAmounts = Integer.parseInt(args[5]);
-		//chCounter.run("/Users/heeseok/Documents/한동대/수업/2-1학기/자바 프로그래밍/카카오톡 채팅파일");
 		chCounter.doJob(args);
 	}
 
@@ -61,7 +57,6 @@ public class ChatCounter {
 		}
 
 		try {
-//			msg.setMessages(fl.readDirectory(openPath));
 			msg.setMessages(fl.readDirectory(input), numThreads);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
@@ -78,18 +73,11 @@ public class ChatCounter {
 				e.printStackTrace();
 			}
 
-		//test
-		//		for(NDMData data : messages.get("남재창")) {
-		//			System.out.println(data.getDate());
-		//			System.out.println(data.getMessage());
-		//		}
-
 		//실행파트 
 		PMCounter pmc = new PMCounter();
 
 		finalOutput = pmc.computePM(messages);
 
-//		fw.writeCSV(savePath, finalOutput);
 		fw.writeCSV(output, finalOutput);
 
 	}

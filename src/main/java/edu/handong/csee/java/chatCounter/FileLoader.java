@@ -5,7 +5,7 @@ import java.util.ArrayList;
 
 
 /**
- * this class gets all files from input path.
+ * this class can gets all files from input path.
  * @author heeseok
  *
  */
